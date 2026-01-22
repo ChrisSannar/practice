@@ -1,0 +1,265 @@
+# Vim / Neovim — 2‑Week Daily Drill Plan
+
+**Goal:** Reach comfortable, practical proficiency by building muscle memory.
+
+**Rule:** No arrow keys. No mouse. Use Vim *only* for the drill target that day.
+
+**For Proficiency:** Repeat all the **In-File Exercises** at least 3 times.
+
+---
+
+## Day 0 - Exiting Vim
+**Learn**
+- Modes: Command
+- `:`
+
+**Drill**
+- Enter/Exit Command mode
+- Exit out of the editor
+
+**In/Out-File Exercise**
+1. Exit out of the editor using `:q` followed by `Enter`
+2. Save and exit by using `:wq`
+
+---
+
+## Day 1 — Movement Basics
+**Learn**
+- `hjkl`
+- `w b e`
+- `0 ^ $`
+- `{ }`
+- `g`
+
+**Drill**
+- Navigate a file without editing
+- Jump word-to-word and line ends only
+
+**In-File Exercise**
+1. Place cursor at top of this file using only `hjkl` (NO arrow keys)
+2. Reach the word `Movement` using only `w/b`
+3. Go back to the word `Goal` using only `w/b`
+4. Navigate to the word `Drill` using only `e`
+5. Jump to the beginning and end of each line in this list using `0`, `^`, and `$`
+6. Jump to the end of this section using `{ }`
+7. Jump to just before `## Date 1` using `{ }`
+8. Return to the top with `gg`
+
+**Win condition:** You stop thinking about movement keys
+
+---
+
+## Day 2 — Modes & Insert Control
+**Learn**
+- Modes: normal / insert
+- `i a o O`
+- `Esc` discipline
+
+**Drill**
+- Edit text using *only* `o/O/i/a`
+- Exit insert mode immediately after edits
+
+**In-File Exercise**
+1. Add a new line *below* this sentence using `o`
+2. Add a new line *above* using `O`
+3. Insert a word in the middle of a sentence using `i`
+4. Append punctuation using `a`
+5. Starting at the beginning of this line, add a message at the end using `A`:
+6. Starting at the end of this line, add a message before the `6.`
+
+**Note:** Many developers prefer to keybind `jk` or something similar to make exiting modes easier
+
+---
+
+## Day 3 — Delete, Change, Yank
+**Learn**
+- `d c y`
+- `dd cc yy`
+- `p P`
+
+**Drill**
+- Rewrite a paragraph using delete/change
+
+**In-File Exercise**
+1. Yank this entire line
+2. Paste it below using `p`
+3. Delete one word with `dw`
+4. Change one word with `cw` and replace it
+
+---
+
+## Day 4 — Operators + Motions
+**Learn**
+- Operator + motion logic
+- `dw`, `d$`, `c0`, `yG`
+
+**Drill**
+- Never select text visually
+
+**In-File Exercise**
+1. Delete from cursor to end of line using `d$`
+2. Change from start of line to cursor using `c0`
+3. Yank from cursor to end of file using `yG`
+
+---
+
+## Day 5 — Text Objects (Huge Leap)
+**Learn**
+- `iw aw ip ap`
+- `i" i' i(`
+
+**Drill**
+- Use `ciw`, `dap`, `yi"` repeatedly
+
+**In-File Exercise**
+1. Place cursor inside a word → run `ciw` and replace it
+2. Place cursor inside quotes → run `ci"`
+3. Place cursor inside this paragraph → run `dap`
+
+---
+
+## Day 6 — Search
+**Learn**
+- `/ ? n N`
+- `* #`
+
+**Drill**
+- Navigate files *only* via search
+
+**In-File Exercise**
+1. Search for the word `Exercise`
+2. Jump forward and backward with `n` / `N`
+3. Place cursor on a word and press `*`
+
+---
+
+## Day 7 — Replace & Repeat
+**Learn**
+- `:%s/foo/bar/gc`
+- `.` repeat
+
+**Drill**
+- Make a change once, repeat everywhere
+
+**In-File Exercise**
+1. Change a word using `cw`
+2. Move to another occurrence
+3. Press `.` to repeat the change
+
+---
+
+## Day 8 — Visual Mode (Controlled)
+**Learn**
+- `v V Ctrl-v`
+- `>` `<`
+
+**Drill**
+- Block edit columns
+- Indent text blocks
+
+**In-File Exercise**
+1. Select multiple lines with `V`
+2. Indent them using `>`
+3. Enter block visual mode and edit a column
+
+---
+
+## Day 9 — Buffers & Files
+**Learn**
+- `:w :q :wq`
+- `:ls :b :bd`
+
+**Drill**
+- Open multiple files, switch without tabs
+
+**In-File Exercise**
+1. Open another file with `:e`
+2. List buffers with `:ls`
+3. Switch buffers using `:b`
+
+---
+
+## Day 10 — Splits & Window Control
+**Learn**
+- `:sp :vsp`
+- `Ctrl-w h j k l`
+
+**Drill**
+- Edit across 2–3 splits
+
+**In-File Exercise**
+1. Split this file horizontally
+2. Move between splits using `Ctrl-w`
+3. Close a split
+
+---
+
+## Day 11 — Registers
+**Learn**
+- `"0` yank register
+- `"+` system clipboard
+
+**Drill**
+- Paste from specific registers intentionally
+
+**In-File Exercise**
+1. Yank a line
+2. Paste from yank register using `"0p`
+3. Copy text to system clipboard using `"+y`
+
+---
+
+## Day 12 — Macros
+**Learn**
+- `qa … q`
+- `@a`, `@@`
+
+**Drill**
+- Automate repetitive edits
+
+**In-File Exercise**
+1. Record a macro that appends `;` to a line
+2. Replay it on multiple lines
+
+---
+
+## Day 13 — Neovim Power
+**Learn**
+- LSP basics
+- Telescope file search
+
+**Drill**
+- Navigate project without file tree
+
+**In-File Exercise**
+1. Use Telescope to open a file
+2. Jump to a symbol using LSP
+
+---
+
+## Day 14 — Personalization
+**Learn**
+- Basic `init.lua`
+- Keymaps
+
+**Drill**
+- Add 2 mappings you actually need
+
+**In-File Exercise**
+1. Open your `init.lua`
+2. Add one normal-mode mapping
+3. Reload config and test it
+
+---
+
+## After 2 Weeks
+You should:
+- Think in *motions*, not selections
+- Rarely use visual mode
+- Edit faster than typing
+
+**Next upgrade paths:**
+- Treesitter text objects
+- Git plugins
+- Custom motions
+
