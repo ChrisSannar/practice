@@ -64,8 +64,8 @@
 2. Add a new line *above* using `O`
 3. Insert a word in the middle of a sentence using `i`
 4. Append punctuation to this sentence using `a`
-5. Starting with the cursor at `5.`, add a message at the end using `A`:
-6. Starting at the end of this line, add a message before the `6.`
+5. Starting with the cursor at `5.`, add a message at the end of this line using `A`:
+6. Starting at the end of this line, add a message before the `6.` using `I`
 
 **Note:** Many developers prefer to keybind `jk` or something similar to make exiting modes easier
 
@@ -87,8 +87,8 @@
 4. Yank this entire line using `yy`.
 5. Paste it below using `p`.
 6. Delete this entire line using `dd` then replace it with `p`.
-7. Change one word in this sentence with `cw` and change it.
-8. Paste here the word you:  
+7. Replace one word in this sentence with `cw`.
+8. Paste the word you changed using `p`: Change 
 
 ---
 
@@ -100,10 +100,16 @@
 **Drill**
 - Never select text visually
 
+**Practice Sentence**
+I am a practice sentence
+
 **In-File Exercise**
-1. Delete from cursor to end of line using `d$`
-2. Change from start of line to cursor using `c0`
-3. Yank from cursor to end of file using `yG`
+1. Delete from "a" in the practice sentence to end of line using `d$`
+2. Replace it with whatever you like.
+3. From the middle of the practice sentence, change the first half using `c0`
+4. Yank from the cursor to end of file using `yG`
+5. Paste a duplicate of the file after `6.` using `p`
+6. Undo the action with `u`
 
 ---
 
