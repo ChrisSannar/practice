@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"strings"
+	"math"
 )
 
-import "golang.org/x/tour/pic"
+// import "golang.org/x/tour/pic"
+import "golang.org/x/tour/wc"
 
 type Vertex struct {
 	X, Y int
@@ -175,6 +177,122 @@ func arrays() {
 
 }
 
+type Coords struct {
+	Lat, Long float64
+}
+
+func maps() {
+	fmt.Println("Maps: ")
+
+	var m map[string]Coords // Default maps == nil
+	m = make(map[string]Coords) // Need to be initialized with `make`
+	m["Bell Labs"] = Coords{
+		40.68433, -74.39967,
+	}
+	fmt.Println(m["Bell Labs"])
+	
+	// Maps can be initialized with literals
+	var m2 = map[string]Coords{
+		"Google": Coords{
+			37.42204, -122.08408,	// <-- need that trailing comma
+		}, // <-- This one too
+	}
+	fmt.Println(m2["Google"])
+
+	// If the value is implied (Coords) then a literal can be used ({0.0, 0.0,})
+	var m3 = map[string]Coords{
+		"Nowhere": {0.0, 0.0,},
+	}
+	fmt.Println(m3["Nowhere"])
+
+	m4 := make(map[string]int)
+	m4["Answer"] = 42
+	fmt.Println("Val: ", m4["Answer"])
+
+	m4["Answer"] = 48
+	fmt.Println("Val changed: ", m4["Answer"])
+	
+	delete(m4, "Answer")
+	fmt.Println("Val: ", m4["Answer"])	// Deleted values default (0)
+
+	//	`v` will be default if deleted, `ok` confirms (true/false)
+	v, ok := m4["Answer"]
+	fmt.Println("Val: ", v, "Present?", ok)	
+	wc.Test(WordCount)
+}
+
+func functions() {
+	fmt.Println("Functions: ")
+
+	// Functions can be values as well
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+	// Passed as variables into other functions
+	fmt.Println(hypot(5, 12))
+	fmt.Println(compute(hypot))
+	fmt.Println(compute(math.Pow))
+	fmt.Println()
+
+	fmt.Println("Closures: ")
+	pos, neg := addr(), addr()	// Both pos, and neg share the `sum` value in the closeure because they're both `addr()`
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
+	}
+	fmt.Println()
+
+	test := closureTest()
+	test()()
+	fmt.Println()
+
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Println(f())
+	}
+}
+
+func fibonacci() func() int {
+	sum1, sum2 := 0
+	return func() int {
+		if sum1 == 0 && sum2 == 0 {
+			sum1 = 1
+			return 0
+		}
+		result := sum1 + sum2
+		sum1 = sum2
+		sum2 = result
+		return result
+	}
+}
+
+func compute(fn func(float64, float64) float64) float64 {
+	return fn(3, 4)
+}
+
+// The funciton addr returns is a closure, having access to "sum"
+func addr() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+func closureTest() func() func() {
+	test1 := "I'm test 1"
+	func1 := func() func() {
+		test2 := "I'm test 2"
+		return func() {
+			test3 := "I'm test 3"
+			fmt.Println(test1, test2, test3)
+		}
+	}
+	return func1
+}
+
 func printSlice(s []int){
 	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
@@ -190,7 +308,22 @@ func Pic(dx, dy int) [][]uint8 {
 	return image
 }
 
+func WordCount(s string) map[string]int {
+	result := make(map[string]int)
+	fields := strings.Fields(s)
+	for _, val := range fields {
+		_, inMap := result[val]
+		if !inMap {
+			result[val] = 1
+		} else {
+			result[val] += 1
+		}
+	}
+	return result
+}
+
 func main() {
+	/*
 	pointers()
 	fmt.Println()
 
@@ -201,5 +334,12 @@ func main() {
 	fmt.Println()
 
 	// fmt.Println(Pic(2, 4))
-	pic.Show(Pic)
+	*/
+	// pic.Show(Pic)
+	// img := pic.Show(Pic) // This function takes a function of type (dx, dy int) [][]uint8
+	// filter := img[5:]
+	// fmt.Printf("%s", strings.Join(filter, ""))
+
+	// maps()
+	functions()
 }

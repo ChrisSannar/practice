@@ -37,12 +37,12 @@
 
 **In-File Exercise**
 1. Place cursor at top of this file using only `hjkl` (NO arrow keys)
-2. Reach the word `Movement` using only `w/b`
-3. Go back to the word `Goal` using only `w/b`
-4. Navigate to the word `Drill` using only `e`
+2. Reach the word `Win` using only `w/b`
+3. Go back to the word `Movement` using only `w/b`
+4. Navigate to the word `Exercise` using only `e`
 5. Jump to the beginning and end of each line in this list using `0`, `^`, and `$`
-6. Jump to the end of this section using `{ }`
-7. Jump to just before `## Date 1` using `{ }`
+6. Jump to the top using using `{ }`
+7. Jump to the end of this section using `{ }`
 8. Return to the top with `gg`
 
 **Win condition:** You stop thinking about movement keys
@@ -63,8 +63,8 @@
 1. Add a new line *below* this sentence using `o`
 2. Add a new line *above* using `O`
 3. Insert a word in the middle of a sentence using `i`
-4. Append punctuation using `a`
-5. Starting at the beginning of this line, add a message at the end using `A`:
+4. Append punctuation to this sentence using `a`
+5. Starting with the cursor at `5.`, add a message at the end using `A`:
 6. Starting at the end of this line, add a message before the `6.`
 
 **Note:** Many developers prefer to keybind `jk` or something similar to make exiting modes easier
@@ -81,10 +81,14 @@
 - Rewrite a paragraph using delete/change
 
 **In-File Exercise**
-1. Yank this entire line
-2. Paste it below using `p`
-3. Delete one word with `dw`
-4. Change one word with `cw` and replace it
+1. Using `de`, cut the last word of this line. 
+2. Use `p` to put it back.
+3. Using `db` cut the first word of this line then use `P` to put it back.
+4. Yank this entire line using `yy`.
+5. Paste it below using `p`.
+6. Delete this entire line using `dd` then replace it with `p`.
+7. Change one word in this sentence with `cw` and change it.
+8. Paste here the word you:  
 
 ---
 
