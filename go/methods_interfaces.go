@@ -63,9 +63,95 @@ func methods() {
 	// Notes: The 2 cases to use Pointer Recievers:
 	//  1. We want to modify the original value passed into the method
 	//  2. We don't want to copy a new value each time we call the function (as normal functions do)
+	fmt.Println()
+}
+
+type Abser interface {
+	Abs() float64
+}
+
+// It seems the philosophy of Go is to use the module itself to keep context
+type I interface {
+	M()
+}
+
+type T struct {
+	S string
+}
+
+// This function then implements the interface `I` to `T`
+func (t *T) M() {
+	if t == nil {
+		fmt.Println("<nil>")
+		return
+	}
+	fmt.Println("M T:", t.S)
+}
+
+func (f MyFloat) M() {
+	fmt.Println("M MyFloat:", f)
+}
+
+func interfaces() {
+	fmt.Println("Interfaces: ")
+
+	var a Abser
+	f := MyFloat(-math.Sqrt2)
+	v := Vertex{3, 4}
+
+	// In order to implement an interface, the given properties need to be applied
+	// aka, interfaces are implemented implicitly (quacks like a duck...)
+	a = f		// `MyFloat` implements `Abser` with `func (f MyFloat) Abs() float64`
+	a = &v	// `*Vertex` implements `Abser` with `func (v Vertex) Abs() float64`
+
+	a = v		// `Vertex` does not implement `Abser`. It is just a struct.
+
+	fmt.Println(a.Abs())
+
+	var i I = &T{"Message"}
+	describe(i)
+	i.M()
+
+	// Now that i is of type `MyFloat`, it then sets it values to that specific types functions (like `M()`) 
+	i = MyFloat(math.Pi)	
+	describe(i)
+	i.M()
+
+	// Because t is nil, methods will still be called, just with a nil reciever
+	// Go doesn't call a nullptr exception, instead it's up to methods to handle the exception
+	var t *T
+	i = t
+	describe(t)
+	i.M()
+
+	var i2 I
+	describe(i2)
+	// nil interface value method calls result in runtime errors
+	// i2.M() // <-- This would cause an error
+
+	// `interface{}` is the Golang "any" type
+	var iEmpty interface{}
+	describe(i)
+
+	iEmpty = 42
+	describeEmpty(iEmpty)
+
+	iEmpty = "Howdy"
+	describeEmpty(iEmpty)
+
+	fmt.Println()
+}
+
+func describe(i I) {
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+func describeEmpty(i interface{}) {
+	fmt.Printf("(%v, %T)\n", i, i)
 }
 
 func main() {
 	fmt.Println("Methods and Interfaces:")
 	methods()
+	interfaces()
 }
