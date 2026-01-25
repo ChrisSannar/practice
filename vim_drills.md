@@ -7,6 +7,8 @@
 **For Proficiency:** Do the **In-File Exercises** in a regressive manner each day:
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
+ - Since you'll be editing this file, consider copying it before beginning
+ - Current Day: 6
 
 ---
 
@@ -69,7 +71,7 @@
 5. Starting with the cursor at `5.`, add a message at the end of this line using `A`:
 6. Starting at the end of this line, add a message before the `6.` using `I`
 
-**Note:** Many developers prefer to keybind `jk` or something similar to make exiting modes easier
+**Note:** Many developers prefer to keybind `jk` or something similar to exit modes quicker (it keeps your fingers on the home row).
 
 ---
 
@@ -83,7 +85,7 @@
 - Rewrite a paragraph using delete/change
 
 **In-File Exercise**
-1. Using `de`, cut the last word of this . 
+1. Using `de`, cut the last word of this line.
 2. Use `p` to put it back.
 3. Using `db` cut the first word of this line then use `P` to put it back.
 4. Yank this entire line using `yy`.
@@ -137,7 +139,8 @@ I am the {final} sentence to [test] on.
 4. Place the cut text above using `P`
 5. Place cursor inside (these parentheses) → run `yi(`
 6. Paste the "yanked" text under "**Practice Sentence**"
-7. Place cursor inside this paragraph → run `dap`
+7. "Yank" the word {final} using `ya{` and paste it here: 
+7. Place cursor inside this paragraph →  `dap`
 
 **Bonus Exercise**: "Yank" 10 words, 5 lines, 3 quotes, and 2 paragraphs using `yw`, `yy`, `yi"`, and `yap`. Then paste them below
 
@@ -152,9 +155,15 @@ I am the {final} sentence to [test] on.
 - Navigate files *only* via search
 
 **In-File Exercise**
-1. Search for the word `Exercise`
-2. Jump forward and backward with `n` / `N`
-3. Place cursor on a word and press `*`
+1. Search for the word `Exercise` using `/`, then press `Enter`
+2. Jump forward and backwards with `n` / `N`
+3. Escape your current search using `Esc`
+4. Search again for `Exercise`, but use `?` this time (searches backwards)
+5. Place cursor on a word and press `*`
+6. Navigate word instances using `n` / `N`
+7. Place cursor on a word and press `#` (searches backwards)
+
+**Note:** Searching with `/` or `?` uses regex patterns while `*` and `#` only search for the selected word
 
 ---
 
