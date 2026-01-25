@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"time"
 )
 
 type Vertex struct {
@@ -79,6 +80,62 @@ type T struct {
 	S string
 }
 
+type Person struct {
+	Name string
+	Age int
+}
+
+type IPAddr [4]byte
+
+func (ip IPAddr) String() string {
+	return fmt.Sprintf("%v.%v.%v.%v", 
+		(ip[0]), 
+		(ip[1]),
+		(ip[2]), 
+		(ip[3]))
+}
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+// Similar to `Stringer`, this is the message taken for errors
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v, %s", e.When, e.What)
+}
+
+// Type `error` is the same as an `Exception` in java
+func run(val interface{}) error {
+	str, ok := val.(string)
+	if ok {
+		fmt.Printf("%v is a string!", str)
+		return nil
+	}
+	return &MyError{
+		time.Now(),
+		"it didn't work",
+	}
+}
+
+type ErrNegativeSqrt float64
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
+}
+
+func MySqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0, ErrNegativeSqrt(x)
+	}
+	return math.Sqrt(x), nil
+}
+
+// The `String` method is the equivilant to `toString()` in java
+// it's auto interperated via functions that take in string input (like fmt.Print)
+func (p Person) String() string {
+	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+}
+
 // This function then implements the interface `I` to `T`
 func (t *T) M() {
 	if t == nil {
@@ -138,6 +195,49 @@ func interfaces() {
 
 	iEmpty = "Howdy"
 	describeEmpty(iEmpty)
+	fmt.Println()
+
+	fmt.Println("Type Assertions:")
+	var inter interface{} = "hello"
+	s, ok := inter.(string)	// You can asssert a type using this syntax + with a check
+	fmt.Println(s, ok)	// ("hello", true)
+
+	f2, ok := inter.(float64)
+	fmt.Println(f2, ok)	// (0, false)
+
+	// This next line causes a panic since there is no check
+	// f2 = i.(float64)
+	fmt.Println(f2)
+
+	doType(21)
+	doType("Howdy")
+	doType(true)
+	fmt.Println()
+
+	fmt.Println("Stringers: ")
+	arthur := Person{"Arthur Dent", 42}
+	zaphod := Person{"Zaphod Beeblebrox", 9001}	
+	fmt.Println(arthur, zaphod)
+
+	hosts := map[string]IPAddr{
+		"loopback": {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip);
+	}
+	fmt.Println()
+	
+	fmt.Println("Error: ")
+	run("Stringy")	// This will work because it has a string
+	// but this wont because it's taking an int
+	if err := run(42); err != nil {
+		// Since error types are then handled accordingly
+		fmt.Println(err)
+	}
+
+	fmt.Println(MySqrt(2))
+	fmt.Println(MySqrt(-2))
 
 	fmt.Println()
 }
@@ -148,6 +248,18 @@ func describe(i I) {
 
 func describeEmpty(i interface{}) {
 	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+// We can switch a type using this syntax
+func doType(i interface{}) {
+	switch v := i.(type) {	// Note we have the use the keyword `type` here
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("%q is %v bytes long\n", v, len(v))
+	default:
+		fmt.Printf("I don't know about type %T!\n", v)
+	}
 }
 
 func main() {
