@@ -8,7 +8,7 @@
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - Current Day: 6
+ - Current Day: 7
 
 ---
 
@@ -85,13 +85,13 @@
 - Rewrite a paragraph using delete/change
 
 **In-File Exercise**
-1. Using `de`, cut the last word of this line.
-2. Use `p` to put it back.
-3. Using `db` cut the first word of this line then use `P` to put it back.
-4. Yank this entire line using `yy`.
-5. Paste it above this line using `p`.
-6. Delete this entire line using `dd` then replace it with `p`.
-7. Change a word in this sentence with `cw`.
+1. Using `de`, cut the last word of this line
+2. Use `p` to put it back
+3. Using `db` cut the first word of this line then use `P` to put it back
+4. Yank this entire line using `yy`
+5. Paste it above this line using `p`
+6. Delete this entire line using `dd` then replace it with `p`
+7. Change a word in this sentence with `cw`
 8. Paste the word you changed using `p`: 
 
 ---
@@ -110,7 +110,7 @@ I am a practice sentence.
 
 **In-File Exercise**
 1. Delete from "a" in the practice sentence to end of line using `d$`
-2. Replace it with whatever you like.
+2. Replace it with whatever you like
 3. From the middle of the practice sentence, change the first half using `c0`
 4. Yank from the cursor to end of file using `yG`
 5. Paste a duplicate of the file after `7.` using `p`
@@ -140,7 +140,7 @@ I am the {final} sentence to [test] on.
 5. Place cursor inside (these parentheses) → run `yi(`
 6. Paste the "yanked" text under "**Practice Sentence**"
 7. "Yank" the word {final} using `ya{` and paste it here: 
-7. Place cursor inside this paragraph →  `dap`
+8. Place cursor inside this paragraph →  `dap`
 
 **Bonus Exercise**: "Yank" 10 words, 5 lines, 3 quotes, and 2 paragraphs using `yw`, `yy`, `yi"`, and `yap`. Then paste them below
 
@@ -169,16 +169,25 @@ I am the {final} sentence to [test] on.
 
 ## Day 7 — Replace & Repeat
 **Learn**
-- `:%s/foo/bar/gc`
+- `:%s/foo/bar/gic`
 - `.` repeat
 
 **Drill**
 - Make a change once, repeat everywhere
 
+**Practice Sentences:**
+I am a foobar, and a bar of foo, and FOO of a BAR. A foobar
+There are opportunities to practice everywhere.
+
 **In-File Exercise**
-1. Change a word using `cw`
-2. Move to another occurrence
-3. Press `.` to repeat the change
+1. Using `:%s/foobar` to highlight every instance in the document.
+2. Press `Esc` to exit editing
+3. Using `:%s/foo/hoo`, select the first `foo` of each line, and replace with `hoo` 
+4. Using `:%s/bar/har/gi` select all `bar`, regardless of case, and replace with `har`
+5. Using `:%s/everywhere/boo/gc` replace only the instance in the Practice Sentence, using `y` (yes), `n` (no), and `q` (quit) to navigate
+6. Change a word by using `cw`, `ciw`, or `caw`
+7. Move to another word
+8. Press `.` to repeat the change in 3 other places 
 
 ---
 
