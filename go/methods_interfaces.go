@@ -2,8 +2,16 @@ package main
 
 import (
 	"fmt"
+	"image"
+	"image/color"
+	"io"
 	"math"
+	"os"
+	"strings"
 	"time"
+
+	"golang.org/x/tour/pic"
+	"golang.org/x/tour/reader"
 )
 
 type Vertex struct {
@@ -47,19 +55,19 @@ func (f MyFloat) Abs() float64 {
 func methods() {
 	fmt.Println("Methods: ")
 	v := Vertex{3, 4}
-	fmt.Println(v.Abs())	// Similar to classes, we can call the method on the struct
+	fmt.Println(v.Abs()) // Similar to classes, we can call the method on the struct
 	fmt.Println(AbsFunc(v))
-	
+
 	f := MyFloat(-math.Sqrt2)
 	fmt.Println(f.Abs())
-	
-	v.Scale(10)	// It doesn't matter if the value called by the pointer reciever is a pointer or not
+
+	v.Scale(10) // It doesn't matter if the value called by the pointer reciever is a pointer or not
 	fmt.Println("Scaled: ", v.Abs())
-	ScaleFunc(&v, 5)	// Since it's a normal funciton, we need to pass the vertex in by reference 
+	ScaleFunc(&v, 5) // Since it's a normal funciton, we need to pass the vertex in by reference
 	fmt.Println("Scaled Again: ", v.Abs())
 
-	p := &v	// The reverse is true for Methods, Go automatically interperates it as a pointer
-	fmt.Println("Pointer v: ", p.Abs());
+	p := &v // The reverse is true for Methods, Go automatically interperates it as a pointer
+	fmt.Println("Pointer v: ", p.Abs())
 
 	// Notes: The 2 cases to use Pointer Recievers:
 	//  1. We want to modify the original value passed into the method
@@ -82,16 +90,16 @@ type T struct {
 
 type Person struct {
 	Name string
-	Age int
+	Age  int
 }
 
 type IPAddr [4]byte
 
 func (ip IPAddr) String() string {
-	return fmt.Sprintf("%v.%v.%v.%v", 
-		(ip[0]), 
+	return fmt.Sprintf("%v.%v.%v.%v",
+		(ip[0]),
 		(ip[1]),
-		(ip[2]), 
+		(ip[2]),
 		(ip[3]))
 }
 
@@ -119,6 +127,7 @@ func run(val interface{}) error {
 }
 
 type ErrNegativeSqrt float64
+
 func (e ErrNegativeSqrt) Error() string {
 	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
 }
@@ -158,10 +167,10 @@ func interfaces() {
 
 	// In order to implement an interface, the given properties need to be applied
 	// aka, interfaces are implemented implicitly (quacks like a duck...)
-	a = f		// `MyFloat` implements `Abser` with `func (f MyFloat) Abs() float64`
-	a = &v	// `*Vertex` implements `Abser` with `func (v Vertex) Abs() float64`
+	a = f  // `MyFloat` implements `Abser` with `func (f MyFloat) Abs() float64`
+	a = &v // `*Vertex` implements `Abser` with `func (v Vertex) Abs() float64`
 
-	a = v		// `Vertex` does not implement `Abser`. It is just a struct.
+	a = v // `Vertex` does not implement `Abser`. It is just a struct.
 
 	fmt.Println(a.Abs())
 
@@ -169,8 +178,8 @@ func interfaces() {
 	describe(i)
 	i.M()
 
-	// Now that i is of type `MyFloat`, it then sets it values to that specific types functions (like `M()`) 
-	i = MyFloat(math.Pi)	
+	// Now that i is of type `MyFloat`, it then sets it values to that specific types functions (like `M()`)
+	i = MyFloat(math.Pi)
 	describe(i)
 	i.M()
 
@@ -199,11 +208,11 @@ func interfaces() {
 
 	fmt.Println("Type Assertions:")
 	var inter interface{} = "hello"
-	s, ok := inter.(string)	// You can asssert a type using this syntax + with a check
-	fmt.Println(s, ok)	// ("hello", true)
+	s, ok := inter.(string) // You can asssert a type using this syntax + with a check
+	fmt.Println(s, ok)      // ("hello", true)
 
 	f2, ok := inter.(float64)
-	fmt.Println(f2, ok)	// (0, false)
+	fmt.Println(f2, ok) // (0, false)
 
 	// This next line causes a panic since there is no check
 	// f2 = i.(float64)
@@ -216,20 +225,20 @@ func interfaces() {
 
 	fmt.Println("Stringers: ")
 	arthur := Person{"Arthur Dent", 42}
-	zaphod := Person{"Zaphod Beeblebrox", 9001}	
+	zaphod := Person{"Zaphod Beeblebrox", 9001}
 	fmt.Println(arthur, zaphod)
 
 	hosts := map[string]IPAddr{
-		"loopback": {127, 0, 0, 1},
+		"loopback":  {127, 0, 0, 1},
 		"googleDNS": {8, 8, 8, 8},
 	}
 	for name, ip := range hosts {
-		fmt.Printf("%v: %v\n", name, ip);
+		fmt.Printf("%v: %v\n", name, ip)
 	}
 	fmt.Println()
-	
-	fmt.Println("Error: ")
-	run("Stringy")	// This will work because it has a string
+
+	fmt.Println("Errors: ")
+	run("Stringy") // This will work because it has a string
 	// but this wont because it's taking an int
 	if err := run(42); err != nil {
 		// Since error types are then handled accordingly
@@ -238,8 +247,65 @@ func interfaces() {
 
 	fmt.Println(MySqrt(2))
 	fmt.Println(MySqrt(-2))
+	fmt.Println()
+
+	fmt.Println("Readers: ")
+	// Readers are basically streams
+	r := strings.NewReader("Hello Reader!")
+	b := make([]byte, 8) // This will act as a buffer
+	for {
+		// As the read the data in, `n` is how much data we read this time
+		n, err := r.Read(b) // `err` will be `io.EOF` when finished
+		fmt.Printf("n = %v\nerr = %v\nb= %v\n", n, err, b)
+		fmt.Printf("b[:n] = %q\n\n", b[:n]) // Something to keep in mind: `b` still has the contents from the last read, it just writes over them to `n` index.
+		if err == io.EOF {
+			break
+		}
+	}
+
+	reader.Validate(MyReader{})
+
+	// rot13Reader: Rotation cypher by 13
+	sRot := strings.NewReader("Lbh penpxrq gur pbqr!")
+	rRot := rot13Reader{sRot} // The reader (feed of data) is then encapsulated by the rot13Reader
+	io.Copy(os.Stdout, &rRot) // Spits it to standard output
 
 	fmt.Println()
+	fmt.Println()
+}
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func (rot rot13Reader) Read(b []byte) (n int, e error) {
+	// First we're reading that section of the feed. Returns the index of the end
+	msgBuffer, err := rot.r.Read(b)
+	// For each item in that section of the buffer...
+	for idx, val := range b[:msgBuffer] {
+		// Ignore punctuation
+		if val < 65 {
+			continue
+		}
+		// Make sure we rotate by max ASCII value
+		newVal := (val + 13) % 123
+		// Lower bound of 'A'
+		if newVal < 65 {
+			newVal += 65
+		}
+		// Set the buffer data to the "rotated" value
+		b[idx] = byte(newVal)
+	}
+	return len(b), err
+}
+
+type MyReader struct{}
+
+func (myReader MyReader) Read(b []byte) (n int, e error) {
+	for i := range b {
+		b[i] = 'A'
+	}
+	return len(b), nil
 }
 
 func describe(i I) {
@@ -252,7 +318,7 @@ func describeEmpty(i interface{}) {
 
 // We can switch a type using this syntax
 func doType(i interface{}) {
-	switch v := i.(type) {	// Note we have the use the keyword `type` here
+	switch v := i.(type) { // Note we have the use the keyword `type` here
 	case int:
 		fmt.Printf("Twice %v is %v\n", v, v*2)
 	case string:
@@ -262,8 +328,38 @@ func doType(i interface{}) {
 	}
 }
 
+type Image struct{}
+
+func (img Image) Bounds() image.Rectangle {
+	var rect image.Rectangle = image.Rect(0, 0, 100, 100)
+	return rect
+}
+func (img Image) ColorModel() color.Model {
+	return color.RGBAModel
+}
+func (img Image) At(x, y int) color.Color {
+	return color.White
+}
+
+func images() {
+	fmt.Println("Images: ")
+
+	m := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	fmt.Println("Bounds: ", m.Bounds())
+	fmt.Print("At: ")
+	fmt.Println(m.At(0, 0).RGBA())
+
+	m2 := Image{}
+
+	pic.ShowImage(m)
+	fmt.Println()
+	pic.ShowImage(m2)
+	fmt.Println()
+}
+
 func main() {
 	fmt.Println("Methods and Interfaces:")
 	methods()
 	interfaces()
+	images()
 }
