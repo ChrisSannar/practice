@@ -8,7 +8,7 @@
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - Current Day: 7
+ - Current Day: 9
 
 ---
 
@@ -133,13 +133,13 @@ I am a (particularly distinct) type of sentence.
 I am the {final} sentence to [test] on.
 
 **In-File Exercise**
-1. Place cursor inside a word → run `ciw` and change it
+1. Place cursor within a word → run `ciw` and change it
 2. Paste the word below using `p`
 3. Place cursor inside "these quotation marks" → run `ci"`
 4. Place the cut text above using `P`
 5. Place cursor inside (these parentheses) → run `yi(`
 6. Paste the "yanked" text under "**Practice Sentence**"
-7. "Yank" the word {final} using `ya{` and paste it here: 
+7. Place the cursor at the beginning of the line, and yank the word {final} using `ya{` and paste it here: 
 8. Place cursor inside this paragraph →  `dap`
 
 **Bonus Exercise**: "Yank" 10 words, 5 lines, 3 quotes, and 2 paragraphs using `yw`, `yy`, `yi"`, and `yap`. Then paste them below
@@ -163,7 +163,7 @@ I am the {final} sentence to [test] on.
 6. Navigate word instances using `n` / `N`
 7. Place cursor on a word and press `#` (searches backwards)
 
-**Note:** Searching with `/` or `?` uses regex patterns while `*` and `#` only search for the selected word
+**Note:** Searching with `/` or `?` use regex patterns while `*` and `#` only search for the selected word
 
 ---
 
@@ -181,11 +181,11 @@ There are opportunities to practice everywhere.
 
 **In-File Exercise**
 1. Using `:%s/foobar` to highlight every instance in the document.
-2. Press `Esc` to exit editing
+2. Press `Esc` or `Backspace` (till Normal) to exit editing
 3. Using `:%s/foo/hoo`, select the first `foo` of each line, and replace with `hoo` 
 4. Using `:%s/bar/har/gi` select all `bar`, regardless of case, and replace with `har`
 5. Using `:%s/everywhere/boo/gc` replace only the instance in the Practice Sentence, using `y` (yes), `n` (no), and `q` (quit) to navigate
-6. Change a word by using `cw`, `ciw`, or `caw`
+6. Replace a word by using `cw`, `ciw`, or `caw`
 7. Move to another word
 8. Press `.` to repeat the change in 3 other places 
 
@@ -201,24 +201,36 @@ There are opportunities to practice everywhere.
 - Indent text blocks
 
 **In-File Exercise**
-1. Select multiple lines with `V`
-2. Indent them using `>`
-3. Enter block visual mode and edit a column
+1. Enter Visual mode using `v`
+2. Select 2.5 words, `d`elete them, and paste them below
+3. Select multiple lines with `V`
+4. Place them below
+5. Select and indent all these steps using `>`
+6. Enter block visual mode using `Ctrl-V`
+7. Select a 3x3 block of code and yank them
+8. Move the cursor to another place and replace the code there with `p`
 
 ---
 
 ## Day 9 — Buffers & Files
 **Learn**
-- `:w :q :wq`
-- `:ls :b :bd`
+- `:b :bn :bp :bd`
+- `:ls :enew`
 
 **Drill**
 - Open multiple files, switch without tabs
+- Create and delete buffers
 
 **In-File Exercise**
-1. Open another file with `:e`
-2. List buffers with `:ls`
-3. Switch buffers using `:b`
+1. Create a new file next to this one. Name it what you like (like: `temp.txt`)
+2. Open that file in a buffer with `:e <file-name>`
+3. List buffers with `:ls`
+4. Switch buffers using `:bn` (buffer next) and `:bp` (buffer previous)
+5. Jump to a specific buffer by using `:b <name>`
+6. Create a brand new buffer with `:enew`
+7. Remove the current buffer with `:bd` (add `<name>` for specifics)
+
+**Note:** With `:ls`, `%` means "current", `a` mean "active", `h` means "hidden", and `#` means "last edited"
 
 ---
 
