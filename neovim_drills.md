@@ -8,7 +8,7 @@
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - Current Day: 9
+ - Current Day: 10
 
 ---
 
@@ -204,7 +204,7 @@ There are opportunities to practice everywhere.
 1. Enter Visual mode using `v`
 2. Select 2.5 words, `d`elete them, and paste them below
 3. Select multiple lines with `V`
-4. Place them below
+4. `y`ank them and place them below
 5. Select and indent all these steps using `>`
 6. Enter block visual mode using `Ctrl-V`
 7. Select a 3x3 block of code and yank them
@@ -243,9 +243,11 @@ There are opportunities to practice everywhere.
 - Edit across 2–3 splits
 
 **In-File Exercise**
-1. Split this file horizontally
-2. Move between splits using `Ctrl-w`
-3. Close a split
+1. Split this file horizontally using `:sp`
+2. Exit out of the new split using `:q` or `Ctrl-w c`
+3. Split another file vertically using `:sp <filename>`
+4. Move between splits using `Ctrl-w` and `h j k l` (same directions as normal)
+5. Resize one of the splits using `Ctrl-w (+, -, <, >)` 
 
 ---
 
