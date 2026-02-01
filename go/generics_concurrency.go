@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -175,7 +176,65 @@ func concurrency() {
 	selectDefault()
 }
 
+func mutex() {
+	fmt.Println("Mutex: ")
+
+	c := SafeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c.Inc("somekey")
+	}
+
+	time.Sleep(time.Second)
+
+	fmt.Println(c.Value("somekey"))
+
+	for i := 65; i < 123; i++ {
+		go c.Add("somekey", string(rune(i)))
+	}
+
+	time.Sleep(time.Millisecond)
+
+	fmt.Println(c.SValue("somekey"))
+}
+
+// Our SafeCounter has a mutex to keep the key from race conditions
+type SafeCounter struct {
+	mu sync.Mutex
+	v  map[string]int
+	v2 map[string]string
+}
+
+// Lock all reading, increment, then unlock
+func (c *SafeCounter) Inc(key string) {
+	c.mu.Lock()
+	c.v[key]++ // Only one goroutine can access this at a time
+	c.mu.Unlock()
+}
+
+func (c *SafeCounter) Add(key string, val string) {
+	c.mu.Lock()
+	fmt.Println(key, val)
+	if c.v2 == nil {
+		c.v2 = map[string]string{}
+	}
+	c.v2[key] = c.v2[key] + " " + val
+	c.mu.Unlock()
+}
+
+func (c *SafeCounter) Value(key string) int {
+	c.mu.Lock()         // Secure our spot in the line...
+	defer c.mu.Unlock() // Then, when we can, unlock and get the data
+	return c.v[key]
+}
+
+func (c *SafeCounter) SValue(key string) string {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.v2[key]
+}
+
 func main() {
 	// generics()
-	concurrency()
+	// concurrency()
+	mutex()
 }
