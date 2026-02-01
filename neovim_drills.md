@@ -8,7 +8,7 @@
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - Current Day: 10
+ - Current Day: 12
 
 ---
 
@@ -207,7 +207,7 @@ There are opportunities to practice everywhere.
 4. `y`ank them and place them below
 5. Select and indent all these steps using `>`
 6. Enter block visual mode using `Ctrl-V`
-7. Select a 3x3 block of code and yank them
+7. Select a 3x3 block of code and yank it
 8. Move the cursor to another place and replace the code there with `p`
 
 ---
@@ -253,16 +253,21 @@ There are opportunities to practice everywhere.
 
 ## Day 11 — Registers
 **Learn**
-- `"0` yank register
-- `"+` system clipboard
+- `"0-9` yank registers
+- `"+`, `"*` system clipboard
 
 **Drill**
-- Paste from specific registers intentionally
+- Paste from specific registers intentionally and externally
 
 **In-File Exercise**
-1. Yank a line
+1. Yank this line
 2. Paste from yank register using `"0p`
-3. Copy text to system clipboard using `"+y`
+3. Yank this line to another register using `"1` + `y`
+4. Paste the original yank below using `"0p`
+5. Paste the second line yanked using `"1p`
+6. Copy text to system clipboard using `"+y`
+7. Paste the system copied text somewhere outside of vim.
+8. Copy text from outside vim and paste below using `"*p`
 
 ---
 
@@ -275,8 +280,13 @@ There are opportunities to practice everywhere.
 - Automate repetitive edits
 
 **In-File Exercise**
-1. Record a macro that appends `;` to a line
-2. Replay it on multiple lines
+1. Record a macro. Start by pressing `qa`
+2. Record the actions to add a `;` at the end of line 1, then move one line down (`A + ; + Esc + j`)
+3. Press `q` again to cancel the macro
+4. Now in the middle of line 2, repeat the Macro by using `@a` or `@@` till the end of this line
+5. Repeat the macro for the remaining lines using `3@a`
+6. Macros can be saved into multiple registers using `qb`, `qc`, `qd`, etc.
+7. To execute, use `@b`, `@c`, `@d`, etc.
 
 ---
 
