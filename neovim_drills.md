@@ -8,7 +8,7 @@
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - Current Day: 13
+ - If you're studying for only `Vim`, you can stop at Day 12
 
 ---
 
@@ -290,43 +290,15 @@ There are opportunities to practice everywhere.
 
 ---
 
-## Day 13 — Neovim Power
-**Learn**
-- LSP basics
-- Telescope file search
-
-**Drill**
-- Navigate project without file tree
-
-**In-File Exercise**
-1. Use Telescope to open a file
-2. Jump to a symbol using LSP
-
----
-
-## Day 14 — Personalization
-**Learn**
-- Basic `init.lua`
-- Keymaps
-
-**Drill**
-- Add 2 mappings you actually need
-
-**In-File Exercise**
-1. Open your `init.lua`
-2. Add one normal-mode mapping
-3. Reload config and test it
-
----
-
-## After 2 Weeks
+## Congrats!
 You should:
 - Think in *motions*, not selections
 - Rarely use visual mode
 - Edit faster than typing
 
 **Next upgrade paths:**
+- Install your own plugins/keybindings
+- Learn LSP and Telescope
 - Treesitter text objects
-- Git plugins
 - Custom motions
 
