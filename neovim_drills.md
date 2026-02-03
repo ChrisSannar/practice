@@ -8,7 +8,7 @@
  - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
  - This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - Current Day: 12
+ - Current Day: 13
 
 ---
 
