@@ -1,14 +1,12 @@
-# Vim / Neovim — 2‑Week Daily Drill Plan
+# Vim — Daily Drill Plan
 
 **Goal:** Reach comfortable, practical proficiency by building muscle memory.
 
 **Rule:** No arrow keys. No mouse. Use Vim *only* for the drill target that day.
 
 **For Proficiency:** Do the **In-File Exercises** in a regressive manner each day:
- - If you're on `Day 7` then you would practice `Day 7` exercises 4 times, `Day 6` exercises 3 times, `Day 5` 2 times, and `Day 4` one time.
- - This will help solidify the concepts in your mind
+ - If you're on `Day 7` then you would practice `Day 7` exercises 3 times, `Day 6` exercises 2 times, and `Day 5` 1 time. This will help solidify the concepts in your mind
  - Since you'll be editing this file, consider copying it before beginning
- - If you're studying for only `Vim`, you can stop at Day 12
 
 ---
 
@@ -24,6 +22,7 @@
 **In/Out-File Exercise**
 1. Exit out of the editor using `:q` followed by `Enter`
 2. Save and exit by using `:wq`
+3. If you've edited the file but want to exit without saving `:q!`
 
 ---
 
@@ -33,21 +32,19 @@
 - `w b e`
 - `0 ^ $`
 - `{ }`
-- `g`
 
 **Drill**
 - Navigate a file without editing
 - Jump word-to-word and line ends only
 
 **In-File Exercise**
-1. Place cursor at top of this file using only `hjkl` (NO arrow keys)
+1. Place cursor just after `## Day 1` using only `hjkl` (NO arrow keys)
 2. Reach the word `Win` using only `w/b`
 3. Go back to the word `Movement` using only `w/b`
 4. Navigate to the word `Exercise` using only `e`
 5. Jump to the beginning and end of each line in this list using `0`, `^`, and `$`
 6. Jump to the top using using `{ }`
 7. Jump to the end of this section using `{ }`
-8. Return to the top with `gg`
 
 **Win condition:** You stop thinking about movement keys
 
@@ -87,11 +84,11 @@
 **In-File Exercise**
 1. Using `de`, cut the last word of this line
 2. Use `p` to put it back
-3. Using `db` cut the first word of this line then use `P` to put it back
+3. Using `db`, cut the first word of this line then use `P` to put it back
 4. Yank this entire line using `yy`
 5. Paste it above this line using `p`
 6. Delete this entire line using `dd` then replace it with `p`
-7. Change a word in this sentence with `cw`
+7. Replace a word in this sentence with `cw`
 8. Paste the word you changed using `p`: 
 
 ---
@@ -109,7 +106,7 @@
 I am a practice sentence.
 
 **In-File Exercise**
-1. Delete from "a" in the practice sentence to end of line using `d$`
+1. Delete from `" a "` in the practice sentence to end of line using `d$`
 2. Replace it with whatever you like
 3. From the middle of the practice sentence, change the first half using `c0`
 4. Yank from the cursor to end of file using `yG`
@@ -119,7 +116,7 @@ I am a practice sentence.
 
 ---
 
-## Day 5 — Text Objects (Huge Leap)
+## Day 5 — Text Objects
 **Learn**
 - `iw aw ip ap`
 - `i" i' i(`
@@ -180,7 +177,7 @@ I am a foobar, and a bar of foo, and FOO of a BAR. A foobar
 There are opportunities to practice everywhere.
 
 **In-File Exercise**
-1. Using `:%s/foobar` to highlight every instance in the document.
+1. Using `:%s/foobar` to highlight every instance in the document
 2. Press `Esc` or `Backspace` (till Normal) to exit editing
 3. Using `:%s/foo/hoo`, select the first `foo` of each line, and replace with `hoo` 
 4. Using `:%s/bar/har/gi` select all `bar`, regardless of case, and replace with `har`
@@ -188,6 +185,21 @@ There are opportunities to practice everywhere.
 6. Replace a word by using `cw`, `ciw`, or `caw`
 7. Move to another word
 8. Press `.` to repeat the change in 3 other places 
+
+---
+
+## Day 8 - Advanced Navigation
+**Learn**
+- `f F t T ; ,`
+- `%`
+- `m '`
+
+**Drill**
+- Find to next/prev character
+- Jump to closing brackets
+- Marks
+
+1. 
 
 ---
 
@@ -202,13 +214,16 @@ There are opportunities to practice everywhere.
 
 **In-File Exercise**
 1. Enter Visual mode using `v`
-2. Select 2.5 words, `d`elete them, and paste them below
+2. Select 2.5 words, delete them (`d`), and paste them below
 3. Select multiple lines with `V`
-4. `y`ank them and place them below
+4. Yank (`y`) them and place them below
 5. Select and indent all these steps using `>`
 6. Enter block visual mode using `Ctrl-V`
 7. Select a 3x3 block of code and yank it
 8. Move the cursor to another place and replace the code there with `p`
+9. Indent (and un-indent) this line using `>>` and `<<`
+
+**Note:** Visual mode should rarely be used. Most actions should be done via motions.
 
 ---
 
@@ -243,9 +258,9 @@ There are opportunities to practice everywhere.
 - Edit across 2–3 splits
 
 **In-File Exercise**
-1. Split this file horizontally using `:sp`
+1. Split this file horizontally using `:sp` (you might have to scroll to see the split)
 2. Exit out of the new split using `:q` or `Ctrl-w c`
-3. Split another file vertically using `:sp <filename>`
+3. Split another file vertically using `:vsp <filename>`
 4. Move between splits using `Ctrl-w` and `h j k l` (same directions as normal)
 5. Resize one of the splits using `Ctrl-w (+, -, <, >)` 
 
@@ -271,6 +286,21 @@ There are opportunities to practice everywhere.
 
 ---
 
+## Day 13 - Advanced Editing
+**Learn**
+- `Ctrl+a Ctrl+x` 
+- `g gu gU ~` 
+- Multiply actions
+
+**Drill**
+- Increment numerics
+- Change character case
+- Run action multiple times
+
+1.
+
+---
+
 ## Day 12 — Macros
 **Learn**
 - `qa … q`
@@ -282,11 +312,17 @@ There are opportunities to practice everywhere.
 **In-File Exercise**
 1. Record a macro. Start by pressing `qa`
 2. Record the actions to add a `;` at the end of line 1, then move one line down (`A + ; + Esc + j`)
-3. Press `q` again to cancel the macro
-4. Now in the middle of line 2, repeat the Macro by using `@a` or `@@` till the end of this line
+3. Press `q` again to complete the macro
+4. Now in the middle of line 2, repeat the Macro by using `@a` till the end of this line
 5. Repeat the macro for the remaining lines using `3@a`
 6. Macros can be saved into multiple registers using `qb`, `qc`, `qd`, etc.
 7. To execute, use `@b`, `@c`, `@d`, etc.
+
+---
+
+## Final Drills
+
+***
 
 ---
 
@@ -295,10 +331,4 @@ You should:
 - Think in *motions*, not selections
 - Rarely use visual mode
 - Edit faster than typing
-
-**Next upgrade paths:**
-- Install your own plugins/keybindings
-- Learn LSP and Telescope
-- Treesitter text objects
-- Custom motions
 
