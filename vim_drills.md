@@ -192,18 +192,32 @@ There are opportunities to practice everywhere.
 **Learn**
 - `f F t T ; ,`
 - `%`
-- `m '`
+- `m{a..z} '`
 
 **Drill**
 - Find to next/prev character
 - Jump to closing brackets
 - Marks
 
-1. 
+**Practice Sentences**
+- I am {a practice sentence}
+- (We too are 
+- Practice sentences)
+
+1. "Find" the next occurrence of the letter 's' by using typing `fs`
+2. Move the cursor forward and backward among the searches using `;` and `,`
+3. Search backward using `F` for a different character
+4. Use `t` and `T` to do the same search (places the cursor after) 
+5. Place the cursor on the `{` of the first practice sentence
+6. Using `%` jump to it's closing bracket: `}`
+7. Do the same with the `()` the 3rd practice sentence
+8. Place a "mark" on line `1.` using `ma`
+9. Navigate to the beginning of the document using `gg`, then navigate back using `'a`
+10. Clear the mark using `:delmarks a`
 
 ---
 
-## Day 8 — Visual Mode (Controlled)
+## Day 9 — Visual Mode (Controlled)
 **Learn**
 - `v V Ctrl-v`
 - `>` `<`
@@ -227,7 +241,7 @@ There are opportunities to practice everywhere.
 
 ---
 
-## Day 9 — Buffers & Files
+## Day 10 — Buffers & Files
 **Learn**
 - `:b :bn :bp :bd`
 - `:ls :enew`
@@ -249,7 +263,7 @@ There are opportunities to practice everywhere.
 
 ---
 
-## Day 10 — Splits & Window Control
+## Day 11 — Splits & Window Control
 **Learn**
 - `:sp :vsp`
 - `Ctrl-w h j k l`
@@ -266,7 +280,7 @@ There are opportunities to practice everywhere.
 
 ---
 
-## Day 11 — Registers
+## Day 12 — Registers
 **Learn**
 - `"0-9` yank registers
 - `"+`, `"*` system clipboard
@@ -301,7 +315,7 @@ There are opportunities to practice everywhere.
 
 ---
 
-## Day 12 — Macros
+## Day 14 — Macros
 **Learn**
 - `qa … q`
 - `@a`, `@@`
