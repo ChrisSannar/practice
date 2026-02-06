@@ -304,14 +304,21 @@ There are opportunities to practice everywhere.
 **Learn**
 - `Ctrl+a Ctrl+x` 
 - `g gu gU ~` 
-- Multiply actions
+- Multiple actions
 
 **Drill**
 - Increment numerics
 - Change character case
 - Run action multiple times
 
-1.
+1. Put the cursor on the `1` at the beginning of this line
+2. Increment the number twice by using `Ctrl+a`
+3. Decrement the number back by using `2Ctrl+x`
+4. capitalize the first letter of this sentence by using `gU`
+5. LOWERCASE THIS WHOLE SENTENCE USING `gu0`
+6. TOGGLE capitalization FOR every LETTER in THIS sentence USING `~`
+7. Jump to the beginning of `3` using `4k0`
+8. Increment `3` to `7` by using `4Ctrl+a`
 
 ---
 
