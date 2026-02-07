@@ -2,11 +2,11 @@
 
 **Goal:** Reach comfortable, practical proficiency by building muscle memory.
 
-**Rule:** No arrow keys. No mouse. Use Vim *only* for the drill target that day.
+**Rule:** No arrow keys (`hjkl` only). No mouse. Use Vim *only* for the drill target that day.
 
-**For Proficiency:** Do the **In-File Exercises** in a regressive manner each day:
- - If you're on `Day 7` then you would practice `Day 7` exercises 3 times, `Day 6` exercises 2 times, and `Day 5` 1 time. This will help solidify the concepts in your mind
- - Since you'll be editing this file, consider copying it before beginning
+**For Proficiency:** Do the **In-File Exercises** in a regressive manner each day: If you're on `Day 7` then you would practice `Day 7` exercises 3 times, `Day 6` exercises 2 times, and `Day 5` 1 time. This will help solidify the concepts in your mind
+
+**Note:** Since you'll be editing this file, consider copying it before beginning
 
 ---
 
@@ -23,6 +23,8 @@
 1. Exit out of the editor using `:q` followed by `Enter`
 2. Save and exit by using `:wq`
 3. If you've edited the file but want to exit without saving `:q!`
+
+**Note:** If command mode is stuck, you can exit out of the current command using `Ctrl+c`
 
 ---
 
@@ -68,7 +70,7 @@
 5. Starting with the cursor at `5.`, add a message at the end of this line using `A`:
 6. Starting at the end of this line, add a message before the `6.` using `I`
 
-**Note:** Many developers prefer to keybind `jk` or something similar to exit modes quicker (it keeps your fingers on the home row).
+**Note:** Many developers prefer to keybind `jk` or something similar to exit modes quicker (it keeps your fingers on the home row which is core to the vim philosophy)
 
 ---
 
@@ -80,6 +82,7 @@
 
 **Drill**
 - Rewrite a paragraph using delete/change
+- Paste edited changes
 
 **In-File Exercise**
 1. Using `de`, cut the last word of this line
@@ -101,6 +104,7 @@
 
 **Drill**
 - Never select text visually
+- Undo and redo
 
 **Practice Sentence**
 I am a practice sentence.
@@ -123,6 +127,7 @@ I am a practice sentence.
 
 **Drill**
 - Use `ciw`, `dap`, `yi"` repeatedly
+- Jump between sections with ease
 
 **Practice Sentences**
 I am a "testing" sentence.
@@ -177,7 +182,7 @@ I am a foobar, and a bar of foo, and FOO of a BAR. A foobar
 There are opportunities to practice everywhere.
 
 **In-File Exercise**
-1. Using `:%s/foobar` to highlight every instance in the document
+1. Using `:%s/foobar` to preview every instance in the document
 2. Press `Esc` or `Backspace` (till Normal) to exit editing
 3. Using `:%s/foo/hoo`, select the first `foo` of each line, and replace with `hoo` 
 4. Using `:%s/bar/har/gi` select all `bar`, regardless of case, and replace with `har`
@@ -237,7 +242,7 @@ There are opportunities to practice everywhere.
 8. Move the cursor to another place and replace the code there with `p`
 9. Indent (and un-indent) this line using `>>` and `<<`
 
-**Note:** Visual mode should rarely be used. Most actions should be done via motions.
+**Note:** Visual mode should rarely be used. Most actions should be done via motions
 
 ---
 
@@ -295,7 +300,7 @@ There are opportunities to practice everywhere.
 4. Paste the original yank below using `"0p`
 5. Paste the second line yanked using `"1p`
 6. Copy text to system clipboard using `"+y`
-7. Paste the system copied text somewhere outside of vim.
+7. Paste the system copied text somewhere outside of vim
 8. Copy text from outside vim and paste below using `"*p`
 
 ---
@@ -344,6 +349,19 @@ There are opportunities to practice everywhere.
 ## Final Drills
 
 ***
+
+1. Put a mark on this line and return to it after you've completed each exercise
+2. Search for the next `## Day` heading, then jump to the end of the section
+3. Change the words `In-File Exercise` to `In-Document Exercise` everywhere, confirming only the first and third replacement
+4. Yank the entire `Day 3` exercise paragraph, paste it below `Day 4`, then undo and redo the change. Past the contents in a new file via a buffer (then close/delete said buffer)
+5. Inside any quoted string in the document, replace the contents, then repeat the same change on the next 2 quoted strings. Toggle the first letter of the last changed content to lowercase/uppercase
+6. Increment the day number in a `## Day X` heading using, then repeat the increment on the next two headings. Then decrement a heading day to `-4`
+7. Split the window vertically, navigate to `Day 10` in the right split using search, then return to this section
+8. Yank one full line into register `1`, delete a different line, then paste the original yanked line back. Yank that line again to the external register and paste it somewhere outside of vim
+9. Use Visual Line mode to select all lines under `Final Drills`, indent them 3 times using one command, then un-indent them back
+10. Using macros, append the word "(DONE)" to the end of every one of these drills
+
+**Win Condition:** You can do every one of these exercises without referencing any other sections of this document
 
 ---
 
