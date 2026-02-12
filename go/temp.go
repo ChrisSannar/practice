@@ -95,5 +95,58 @@ func concurrencyPractice() {
 	// multiChannel()
 
 	// 4. Can select from current channel output
-	selectCases()
+	// selectCases()
+	/*
+		arr := []int{1, 2, 3, 4, 5, 6}
+		slc := arr[4:]
+		fmt.Println(len(arr), len(slc))
+		slc[0] = 0
+		slc = append(slc, 7, 8, 9, 10, 11, 12, 13, 14)
+		fmt.Println(arr, slc)
+		fmt.Println(len(arr), len(slc))
+	*/
+
+	changeMap := func(merp map[string]int) {
+		merp["a"] = 0
+	}
+
+	var mappers map[string]int = map[string]int{
+		"a": 1,
+		"b": 2,
+		"c": 3,
+	}
+	changeMap(mappers)
+	fmt.Println(mappers)
+
+	changeArr := func(arr []int) {
+		arr[0] = 0
+	}
+	passedArr := []int{1, 2, 3, 4}
+	changeArr(passedArr[:])
+	fmt.Println("Arr", passedArr)
+	fmt.Println()
+
+	var temp string = "yep"
+	changeStr := func(str string) {
+		str = "nope"
+	}
+	changeStr(temp)
+	fmt.Println(temp)
+}
+
+func Arrays() {
+	Sum := func(a *[3]float64) (sum float64) {
+		for _, v := range *a {
+			sum += v
+		}
+		return
+	}
+
+	array := [...]float64{7.0, 8.5, 9.1}
+	x := Sum(&array)
+	fmt.Println("X", x)
+	x2 := []int{1, 2, 3}
+	fmt.Println("cap", cap(x2))
+	x2 = append(x2, 4, 5)
+	fmt.Println("cap2", cap(x2))
 }
