@@ -132,6 +132,27 @@ func concurrencyPractice() {
 	}
 	changeStr(temp)
 	fmt.Println(temp)
+
+	Printing()
+}
+
+type T struct {
+	a int
+	b float64
+	c string
+}
+
+func Printing() {
+
+	var x uint64 = 1<<64 - 1
+	// `%d` prints the number, `%x` prints the hex
+	fmt.Printf("%d %x; %d %x\n", x, x, int64(x), int64(x))
+
+	// use `%v` as a "catch all" (value)
+	t := &T{7, -2.35, "abc\tdef"}
+	fmt.Printf("%v\n", t)
+	fmt.Printf("%+v\n", t)
+	fmt.Printf("%#v\n", t)
 }
 
 func Arrays() {
