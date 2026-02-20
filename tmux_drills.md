@@ -1,0 +1,32 @@
+ - Start a new session: tmux
+ - Detach from session: Ctrl + b followed by d
+ - List sessions: tmux ls
+ - Attach to session: tmux a or tmux a -t session_name
+ - Create new window: Ctrl + b followed by c
+ - Switch between windows: Ctrl + b followed by 0, 1, etc. (or n for next, p for previous)
+ - Split window vertically: Ctrl + b followed by %
+ - Split window horizontally: Ctrl + b followed by "
+ - Navigate between panes: Ctrl + b followed by arrow keys
+ - Kill current pane: Ctrl + b followed by x
+ - Kill current window: Ctrl + b followed by &
+ - Reload config: Ctrl + b followed by r (after editing ~/.tmux.conf) 
+Repetition Drill Sequence (Daily Practice)
+ - Open terminal → Run tmux
+ - Create 3 windows: c, c, c
+ - Name them: Ctrl + b → , → type code, server, logs
+ - Split window vertically → Ctrl + b → %
+ - Split one pane horizontally → Ctrl + b → "
+ - Move between all 4 panes using arrow keys
+ - Run ls in one pane, top in another, vim in a third
+ - Switch back to window 1 → Ctrl + b → 0
+ - Kill the logs window → Ctrl + b → &
+ - Detach → Ctrl + b → d
+ - Reattach → tmux a
+ - Repeat steps 1–10 5 times daily for 5 days. 
+Advanced Repetition: Session & Window Management
+ - Create named session: tmux new -s dev
+ - Switch between sessions: Ctrl + b → s
+ - Rename session: Ctrl + b → $
+ - Kill session: tmux kill-session -t dev
+ - Reattach to last session: tmux a
+ - Use fzf for session/window switching (if installed): Ctrl + b → f (requires fzf setup) 
