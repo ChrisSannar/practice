@@ -7,7 +7,8 @@ import (
 
 func main() {
 	fmt.Println("Worker Pools")
-	basics()
+	// basics()
+	waitGroup()
 }
 
 func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
@@ -31,6 +32,40 @@ func basics() {
 	for w := 0; w < numWorkers; w++ {
 		wg.Add(1)
 		go worker(w, jobs, results, &wg)
+	}
+
+	for j := 0; j < numJobs; j++ {
+		jobs <- j
+	}
+	close(jobs)
+
+	wg.Wait()
+	close(results)
+
+	for result := range results {
+		fmt.Println("Result:", result)
+	}
+}
+
+func worker2(id int, jobs <-chan int, results chan<- int) {
+	for j := range jobs {
+		fmt.Printf("Worker %d processing task %d\n", id, j)
+
+		results <- j * 2
+		fmt.Printf("Worker %d completed task %d\n", id, j)
+	}
+}
+
+func waitGroup() {
+	const numWorkers = 3
+	const numJobs = 5
+
+	jobs := make(chan int, numJobs)
+	results := make(chan int, numJobs)
+	var wg sync.WaitGroup
+
+	for w := 0; w < numWorkers; w++ {
+		wg.Go(func() { worker2(w, jobs, results) })
 	}
 
 	for j := 0; j < numJobs; j++ {
