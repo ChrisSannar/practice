@@ -9,7 +9,7 @@ func main() {
 	// 		str[i], str[j] = str[j], str[i]
 	// 	}
 	// 	fmt.Println(string(str))
-	concurrencyPractice()
+	// concurrencyPractice()
 }
 
 func basicChannel() {
@@ -60,7 +60,6 @@ func multiChannel() {
 }
 
 func selectCases() {
-
 	a := make(chan string)
 	b := make(chan string)
 
@@ -79,7 +78,6 @@ func selectCases() {
 }
 
 func mergeChannels() {
-
 }
 
 func concurrencyPractice() {
@@ -143,7 +141,6 @@ type T struct {
 }
 
 func Printing() {
-
 	var x uint64 = 1<<64 - 1
 	// `%d` prints the number, `%x` prints the hex
 	fmt.Printf("%d %x; %d %x\n", x, x, int64(x), int64(x))
