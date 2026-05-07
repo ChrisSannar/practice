@@ -1,0 +1,373 @@
+# Vim — Daily Drill Plan
+
+**Goal:** Reach comfortable, practical proficiency by building muscle memory.
+
+**Rule:** No arrow keys (`hjkl` only). No mouse. Use Vim *only* for the drill target that day.
+
+**For Proficiency:** Do the **In-File Exercises** in a regressive manner each day: If you're on `Day 7` then you would practice `Day 7` exercises 3 times, `Day 6` exercises 2 times, and `Day 5` 1 time. This will help solidify the concepts in your mind
+
+**Note:** Since you'll be editing this file, consider copying it before beginning
+
+---
+
+## Day 0 - Exiting Vim
+**Learn**
+- Modes: Command
+- `:`
+
+**Drill**
+- Enter/Exit Command mode
+- Exit out of the editor
+
+**In/Out-File Exercise**
+1. Exit out of the editor using `:q` followed by `Enter`
+2. Save and exit by using `:wq`
+3. If you've edited the file but want to exit without saving `:q!`
+
+**Note:** If command mode is stuck, you can exit out of the current command using `Ctrl+c`
+
+---
+
+## Day 1 — Movement Basics
+**Learn**
+- `hjkl`
+- `w b e`
+- `0 ^ $`
+- `{ }`
+
+**Drill**
+- Navigate a file without editing
+- Jump word-to-word and line ends only
+
+**In-File Exercise**
+1. Place cursor just after `## Day 1` using only `hjkl` (NO arrow keys)
+2. Reach the word `Win` using only `w/b`
+3. Go back to the word `Movement` using only `w/b`
+4. Navigate to the word `Exercise` using only `e`
+5. Jump to the beginning and end of each line in this list using `0`, `^`, and `$`
+6. Jump to the top using using `{ }`
+7. Jump to the end of this section using `{ }`
+
+**Win condition:** You stop thinking about movement keys
+
+---
+
+## Day 2 — Modes & Insert Control
+**Learn**
+- Modes: normal / insert
+- `i a o O`
+- `Esc` discipline
+
+**Drill**
+- Edit text using *only* `o/O/i/a`
+- Exit insert mode immediately after edits
+
+**In-File Exercise**
+1. Add a new line *below* this sentence using `o`
+2. Add a new line *above* using `O`
+3. Insert a word in the middle of this sentence using `i`
+4. Append punctuation to this sentence using `a`
+5. Starting with the cursor at `5.`, add a message at the end of this line using `A`:
+6. Starting at the end of this line, add a message before the `6.` using `I`
+
+**Note:** Many developers prefer to keybind `jk` or something similar to exit modes quicker (it keeps your fingers on the home row which is core to the vim philosophy)
+
+---
+
+## Day 3 — Delete, Change, Yank
+**Learn**
+- `d c y`
+- `dd cc yy`
+- `p P`
+
+**Drill**
+- Rewrite a paragraph using delete/change
+- Paste edited changes
+
+**In-File Exercise**
+1. Using `de`, cut the last word of this line
+2. Use `p` to put it back
+3. Using `db`, cut the first word of this line then use `P` to put it back
+4. Yank this entire line using `yy`
+5. Paste it above this line using `p`
+6. Delete this entire line using `dd` then replace it with `p`
+7. Replace a word in this sentence with `cw`
+8. Paste the word you changed using `p`: 
+
+---
+
+## Day 4 — Operators + Motions
+**Learn**
+- Operator + motion logic
+- `dw`, `d$`, `c0`, `yG`
+- `u`, `Ctrl-r`
+
+**Drill**
+- Never select text visually
+- Undo and redo
+
+**Practice Sentence**
+I am a practice sentence.
+
+**In-File Exercise**
+1. Delete from `" a "` in the practice sentence to end of line using `d$`
+2. Replace it with whatever you like
+3. From the middle of the practice sentence, change the first half using `c0`
+4. Yank from the cursor to end of file using `yG`
+5. Paste a duplicate of the file after `7.` using `p`
+6. Undo the action with `u`
+7. Redo the action with `Ctrl-r` (then undo it again)
+
+---
+
+## Day 5 — Text Objects
+**Learn**
+- `iw aw ip ap`
+- `i" i' i(`
+
+**Drill**
+- Use `ciw`, `dap`, `yi"` repeatedly
+- Jump between sections with ease
+
+**Practice Sentences**
+I am a "testing" sentence.
+I am a (particularly distinct) type of sentence.
+I am the {final} sentence to [test] on.
+
+**In-File Exercise**
+1. Place cursor within a word → run `ciw` and change it
+2. Paste the word below using `p`
+3. Place cursor inside "these quotation marks" → run `ci"`
+4. Place the cut text above using `P`
+5. Place cursor inside (these parentheses) → run `yi(`
+6. Paste the "yanked" text under "**Practice Sentence**"
+7. Place the cursor at the beginning of the line, and yank the word {final} using `ya{` and paste it here: 
+8. Place cursor inside this paragraph →  `dap`
+
+**Bonus Exercise**: "Yank" 10 words, 5 lines, 3 quotes, and 2 paragraphs using `yw`, `yy`, `yi"`, and `yap`. Then paste them below
+
+---
+
+## Day 6 — Search
+**Learn**
+- `/ ? n N`
+- `* #`
+
+**Drill**
+- Navigate files *only* via search
+
+**In-File Exercise**
+1. Search for the word `Exercise` using `/`, then press `Enter`
+2. Jump forward and backwards with `n` / `N`
+3. Escape your current search using `Esc`
+4. Search again for `Exercise`, but use `?` this time (searches backwards)
+5. Place cursor on a word and press `*`
+6. Navigate word instances using `n` / `N`
+7. Place cursor on a word and press `#` (searches backwards)
+
+**Note:** Searching with `/` or `?` use regex patterns while `*` and `#` only search for the selected word
+
+---
+
+## Day 7 — Replace & Repeat
+**Learn**
+- `:%s/foo/bar/gic`
+- `.` repeat
+
+**Drill**
+- Make a change once, repeat everywhere
+
+**Practice Sentences:**
+I am a foobar, and a bar of foo, and FOO of a BAR. A foobar
+There are opportunities to practice everywhere.
+
+**In-File Exercise**
+1. Using `:%s/foobar` to preview every instance in the document
+2. Press `Esc` or `Backspace` (till Normal) to exit editing
+3. Using `:%s/foo/hoo`, select the first `foo` of each line, and replace with `hoo` 
+4. Using `:%s/bar/har/gi` select all `bar`, regardless of case, and replace with `har`
+5. Using `:%s/everywhere/boo/gc` replace only the instance in the Practice Sentence, using `y` (yes), `n` (no), and `q` (quit) to navigate
+6. Replace a word by using `cw`, `ciw`, or `caw`
+7. Move to another word
+8. Press `.` to repeat the change in 3 other places 
+
+---
+
+## Day 8 - Advanced Navigation
+**Learn**
+- `f F t T ; ,`
+- `%`
+- `m{a..z} '`
+
+**Drill**
+- Find to next/prev character
+- Jump to closing brackets
+- Marks
+
+**Practice Sentences**
+- I am {a practice sentence}
+- (We too are 
+- Practice sentences)
+
+1. "Find" the next occurrence of the letter 's' by using typing `fs`
+2. Move the cursor forward and backward among the searches using `;` and `,`
+3. Search backward using `F` for a different character
+4. Use `t` and `T` to do the same search (places the cursor after) 
+5. Place the cursor on the `{` of the first practice sentence
+6. Using `%` jump to it's closing bracket: `}`
+7. Do the same with the `()` the 3rd practice sentence
+8. Place a "mark" on line `1.` using `ma`
+9. Navigate to the beginning of the document using `gg`, then navigate back using `'a`
+10. Clear the mark using `:delmarks a`
+
+---
+
+## Day 9 — Visual Mode (Controlled)
+**Learn**
+- `v V Ctrl-v`
+- `>` `<`
+
+**Drill**
+- Block edit columns
+- Indent text blocks
+
+**In-File Exercise**
+1. Enter Visual mode using `v`
+2. Select 2.5 words, delete them (`d`), and paste them below
+3. Select multiple lines with `V`
+4. Yank (`y`) them and place them below
+5. Select and indent all these steps using `>`
+6. Enter block visual mode using `Ctrl-V`
+7. Select a 3x3 block of code and yank it
+8. Move the cursor to another place and replace the code there with `p`
+9. Indent (and un-indent) this line using `>>` and `<<`
+
+**Note:** Visual mode should rarely be used. Most actions should be done via motions
+
+---
+
+## Day 10 — Buffers & Files
+**Learn**
+- `:b :bn :bp :bd`
+- `:ls :enew`
+
+**Drill**
+- Open multiple files, switch without tabs
+- Create and delete buffers
+
+**In-File Exercise**
+1. Create a new file next to this one. Name it what you like (like: `temp.txt`)
+2. Open that file in a buffer with `:e <file-name>`
+3. List buffers with `:ls`
+4. Switch buffers using `:bn` (buffer next) and `:bp` (buffer previous)
+5. Jump to a specific buffer by using `:b <name>`
+6. Create a brand new buffer with `:enew`
+7. Remove the current buffer with `:bd` (add `<name>` for specifics)
+
+**Note:** With `:ls`, `%` means "current", `a` mean "active", `h` means "hidden", and `#` means "last edited"
+
+---
+
+## Day 11 — Splits & Window Control
+**Learn**
+- `:sp :vsp`
+- `Ctrl-w h j k l`
+
+**Drill**
+- Edit across 2–3 splits
+
+**In-File Exercise**
+1. Split this file horizontally using `:sp` (you might have to scroll to see the split)
+2. Exit out of the new split using `:q` or `Ctrl-w c`
+3. Split another file vertically using `:vsp <filename>`
+4. Move between splits using `Ctrl-w` and `h j k l` (same directions as normal)
+5. Resize one of the splits using `Ctrl-w (+, -, <, >)` 
+
+---
+
+## Day 12 — Registers
+**Learn**
+- `"0-9` yank registers
+- `"+`, `"*` system clipboard
+
+**Drill**
+- Paste from specific registers intentionally and externally
+
+**In-File Exercise**
+1. Yank this line
+2. Paste from yank register using `"0p`
+3. Yank this line to another register using `"1` + `y`
+4. Paste the original yank below using `"0p`
+5. Paste the second line yanked using `"1p`
+6. Copy text to system clipboard using `"+y`
+7. Paste the system copied text somewhere outside of vim
+8. Copy text from outside vim and paste below using `"*p`
+
+---
+
+## Day 13 - Advanced Editing
+**Learn**
+- `Ctrl+a Ctrl+x` 
+- `g gu gU ~` 
+- Multiple actions
+
+**Drill**
+- Increment numerics
+- Change character case
+- Run action multiple times
+
+1. Put the cursor on the `1` at the beginning of this line
+2. Increment the number twice by using `Ctrl+a`
+3. Decrement the number back by using `2Ctrl+x`
+4. capitalize the first letter of this sentence by using `gU`
+5. LOWERCASE THIS WHOLE SENTENCE USING `gu0`
+6. TOGGLE capitalization FOR every LETTER in THIS sentence USING `~`
+7. Jump to the beginning of `3` using `4k0`
+8. Increment `3` to `7` by using `4Ctrl+a`
+
+---
+
+## Day 14 — Macros
+**Learn**
+- `qa … q`
+- `@a`, `@@`
+
+**Drill**
+- Automate repetitive edits
+
+**In-File Exercise**
+1. Record a macro. Start by pressing `qa`
+2. Record the actions to add a `;` at the end of line 1, then move one line down (`A + ; + Esc + j`)
+3. Press `q` again to complete the macro
+4. Now in the middle of line 2, repeat the Macro by using `@a` till the end of this line
+5. Repeat the macro for the remaining lines using `3@a`
+6. Macros can be saved into multiple registers using `qb`, `qc`, `qd`, etc.
+7. To execute, use `@b`, `@c`, `@d`, etc.
+
+---
+
+## Final Drills
+
+***
+
+1. Put a mark on this line and return to it after you've completed each exercise
+2. Search for the next `## Day` heading, then jump to the end of the section
+3. Change the words `In-File Exercise` to `In-Document Exercise` everywhere, confirming only the first and third replacement
+4. Yank the entire `Day 3` exercise paragraph, paste it below `Day 4`, then undo and redo the change. Past the contents in a new file via a buffer (then close/delete said buffer)
+5. Inside any quoted string in the document, replace the contents, then repeat the same change on the next 2 quoted strings. Toggle the first letter of the last changed content to lowercase/uppercase
+6. Increment the day number in a `## Day X` heading using, then repeat the increment on the next two headings. Then decrement a heading day to `-4`
+7. Split the window vertically, navigate to `Day 10` in the right split using search, then return to this section
+8. Yank one full line into register `1`, delete a different line, then paste the original yanked line back. Yank that line again to the external register and paste it somewhere outside of vim
+9. Use Visual Line mode to select all lines under `Final Drills`, indent them 3 times using one command, then un-indent them back
+10. Using macros, append the word "(DONE)" to the end of every one of these drills
+
+**Win Condition:** You can do every one of these exercises without referencing any other sections of this document
+
+---
+
+## Congrats!
+You should:
+- Think in *motions*, not selections
+- Rarely use visual mode
+- Edit faster than typing
+
