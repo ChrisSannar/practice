@@ -3,6 +3,17 @@ package main
 import "fmt"
 
 func main() {
+	fmt.Println("This is a test")
+	var temp string = "This is another test"
+	temp2 := "i'm also a test"
+	fmt.Println(temp, temp2)
+
+	tempArr := []int{2, 4, 6}
+	for i := 1; i < 4; i++ {
+		fmt.Println("I am test: ", i)
+		fmt.Println("I'm another test: ", tempArr[i-1])
+	}
+
 	// 	var tempString string = "I am a temp string: racecar"
 	// 	str := []byte(tempString)
 	// 	for i, j := 0, len(str)-1; i < j; i, j = i+1, j-1 {
