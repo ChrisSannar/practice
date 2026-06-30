@@ -4,6 +4,10 @@ A daily ritual for retaining and learning concepts in **Go, Python, and TypeScri
 small test-driven exercises. You name a concept; the system hands you one bite-sized failing
 test suite to make pass. You learn by doing — it does not teach or hand over solutions.
 
+**Current goal: interview patterns.** The active track is `INTERVIEW_PATTERNS.md` — a Go syllabus
+of 15 coding-interview patterns, each broken into primitive drills that ladder up to a real
+problem. `/daily continue` walks that ladder; naming a specific concept still overrides it.
+
 ## The ritual
 
 1. **Get a task.** Run the `/daily` slash command in Claude Code:

@@ -8,9 +8,19 @@ You are running the **daily practice ritual** for this repo. The user owns the l
 your job is ONLY to manufacture one well-scoped, ≤20-minute TDD exercise and to calibrate its
 difficulty from how past attempts went. Do not teach the concept and do not write the solution.
 
+**Active track: interview patterns.** The current learning goal is `daily/INTERVIEW_PATTERNS.md` —
+a Go syllabus of 15 coding-interview patterns, each broken into primitive micro-steps that ladder
+up to a real problem. Read it at the start of every run. Treat it as the spine for `continue` and
+empty/recommend mode, and **always build the prerequisite primitives before the full problem**.
+When you finish a step, tick its `[ ]`→`[x]` checkbox in that file (and flip the pattern's status
+☐→◐→☑) so the syllabus reflects progress. A named concept argument still overrides the track.
+
 Argument: `$ARGUMENTS`
 
-Today's date: run `date +%F` and use that value as `<date>` everywhere below.
+Date: by default run `date +%F` and use that as `<date>` everywhere below. **If the argument
+contains an explicit date** (a `YYYY-MM-DD` token), use that as `<date>` instead — this lets you
+generate or grade an exercise for a day other than today. Strip the date token out before
+interpreting the rest of the argument as the concept / `continue` / empty.
 
 ## Step 1 — Close out the previous exercise (always do this first)
 
@@ -37,11 +47,13 @@ Parse `$ARGUMENTS`:
 - **A concept** (e.g. `go channels`, `python iterators`, `ts mapped types`): use it.
   Infer the language from the concept. If the concept doesn't imply one of Go/Python/TypeScript,
   ask the user which of the three to use.
-- **`continue`**: take the most recent active concept from `PROGRESS.md` and give the next
-  bite-sized piece in that arc.
-- **Empty**: **recommend** — from the Concepts table pick a concept whose `Next review` is on or
-  before today (lowest `Confidence` first). If none are due, continue the active goal. If there's
-  no history at all, ask the user what concept they want to start with.
+- **`continue`**: advance the active track — give the next unchecked micro-step in
+  `INTERVIEW_PATTERNS.md` (the next `[ ]` within the current pattern, or the first step of the next
+  pattern). Honor the laddering: never jump to a `?c` problem step if its `?a`/`?b` primitives
+  aren't done.
+- **Empty**: **recommend** — first, from the `PROGRESS.md` Concepts table, resurface any concept
+  whose `Next review` is on or before today (lowest `Confidence` first). If none are due, advance
+  the active track per `INTERVIEW_PATTERNS.md` (same as `continue`).
 
 Only Go, Python, and TypeScript are in scope.
 
