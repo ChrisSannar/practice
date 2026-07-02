@@ -30,20 +30,37 @@ when you fail, it resets so the concept comes back fast.
 | Go basics (vars/slices/strings/maps/loops) | Go | 1 | passed | 4 | 2026-06-25 | 2026-06-28 |
 | Go slices & maps (chunk/unique/set/merge) | Go | 1 | failed (Chunk) | 3 | 2026-06-27 | 2026-06-28 |
 | Go slice windowing (Take/Drop/Chunk) | Go | 1 | failed (Chunk) | 3 | 2026-06-28 | 2026-06-29 |
-| Two pointers — ends mechanic (interview 2a-i/ii) | Go | 0 | in-progress | — | 2026-06-30 | 2026-06-30 |
+| Two pointers — ends mechanic (interview 2a-i/ii) | Go | 1 | passed | 4 | 2026-06-30 | 2026-07-02 |
+| Two pointers — converge (interview 2a-iii) | Go | 1 | passed | 4 | 2026-07-01 | 2026-07-03 |
+| Two pointers — write index (interview 2b) | Go | 0 | in-progress | — | 2026-07-02 | 2026-07-02 |
 
 ## Log
 
 <!-- Reverse-chronological. Newest entry on top. /daily prepends one entry per exercise. -->
 
+### 2026-07-02 — Two pointers / same-direction write index (Go) — interview track 2b
+- Folder: `exercises/2026-07-02-go-two-pointers-write-index/`
+- Outcome: in-progress
+- Notes: New two-pointer *shape* — both pointers start left, a slow write pointer trails a fast read
+  pointer for in-place array edits (`RemoveDuplicates` on a sorted slice, `MoveZeroes`). Contrast
+  with the converge family (2a) which walks inward from the ends.
+
+### 2026-07-01 — Two pointers / converge (Go) — interview track 2a-iii
+- Folder: `exercises/2026-07-01-go-two-pointers-converge/`
+- Outcome: passed (green) — `PairWithTarget`
+- Critique: `exercises/2026-07-01-go-two-pointers-converge/CRITIQUE.md`
+- Notes: Converge nailed — correct three-way decision, moved only one pointer per step, `for l < r`
+  boundary, non-nil empty. Also caught a genuine bug in the test's negatives case (two valid pairs;
+  converge returns the outer one). Only cleanup: a leftover `fmt.Println` debug line. Pattern 1
+  (Two Pointers converge family) is solid → 2b introduces the same-direction shape.
+
 ### 2026-06-30 — Two pointers / ends mechanic (Go) — interview track 2a-i & 2a-ii
 - Folder: `exercises/2026-06-30-go-two-pointers-ends/`
-- Outcome: in-progress
-- Notes: First step of the new interview-patterns track (`INTERVIEW_PATTERNS.md`). Split 2a into
-  smaller rungs at the user's request: today is the bare ends-converge *mechanic* (`IsPalindrome`,
-  `ReverseInPlace` — both `for l < r`, move both inward), no which-pointer decision. The converge
-  decision (`PairWithTarget`, move only one pointer) is deferred to 2a-iii. Targets the same
-  loop-termination instinct that was the residual gap in `Chunk`.
+- Outcome: passed (both green) — `IsPalindrome` + `ReverseInPlace`
+- Critique: `exercises/2026-06-30-go-two-pointers-ends/CRITIQUE.md`
+- Notes: Ends-converge mechanic clicked — airtight `for l < r`, idiomatic tuple swap, early-return
+  on mismatch, empty/single fall out for free. Only sharpen is style (step belongs in the `for`
+  post clause; drop the dead `fmt` import). Ready for the which-pointer decision → 2a-iii.
 
 ### 2026-06-28 — Go slice windowing (Go)
 - Folder: `exercises/2026-06-28-go-slice-windows/`

@@ -46,16 +46,18 @@ These get their own primitive-drill days the first time a pattern needs them:
 
 Status legend: ☐ not started · ◐ in progress · ☑ solid. Update as we go.
 
-### 1. Two Pointers ◐
+### 1. Two Pointers ◐ (converge family ☑; 2b same-direction in progress)
 Build on the slice index work already done.
-- [◐] **2a-i** Ends mechanic, no decisions — `IsPalindrome`: `l`/`r` from both ends, `for l < r`,
-  compare and move *both* inward. → `exercises/2026-06-30-go-two-pointers-ends/` (with 2a-ii)
-- [◐] **2a-ii** Same mechanic + a swap — `ReverseInPlace`: ends, swap, move both inward.
-  → `exercises/2026-06-30-go-two-pointers-ends/`
-- [ ] **2a-iii** The converge: move *only one* pointer based on `sum < / > / == target` on a sorted
+- [x] **2a-i** Ends mechanic, no decisions — `IsPalindrome`: `l`/`r` from both ends, `for l < r`,
+  compare and move *both* inward. → `exercises/2026-06-30-go-two-pointers-ends/` (passed)
+- [x] **2a-ii** Same mechanic + a swap — `ReverseInPlace`: ends, swap, move both inward.
+  → `exercises/2026-06-30-go-two-pointers-ends/` (passed)
+- [x] **2a-iii** The converge: move *only one* pointer based on `sum < / > / == target` on a sorted
   slice. (`PairWithTarget`, return the index pair.) This is the one genuinely new idea.
-- [ ] **2b** Same-direction write index: in-place remove-duplicates / move-zeroes — the "slow write
+  → `exercises/2026-07-01-go-two-pointers-converge/` (passed)
+- [◐] **2b** Same-direction write index: in-place remove-duplicates / move-zeroes — the "slow write
   pointer, fast read pointer" idiom.
+  → `exercises/2026-07-02-go-two-pointers-write-index/` (in progress)
 - [ ] **2c** Problem: valid palindrome (skip non-alphanumerics) and/or two-sum-II.
 
 ### 2. Prefix Sum ☐

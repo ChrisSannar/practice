@@ -6,7 +6,11 @@
 
 ## Things to Change
 
-- Make sure to include a rigorous amount of testcases for all possible edgecases
+- Each daily should have at least 3 exercises to practice on
+
+## Things to Study
+
+- Learn how golang packages work
 
 ## Done
 
