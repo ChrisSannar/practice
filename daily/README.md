@@ -1,8 +1,9 @@
 # Daily Practice
 
 A daily ritual for retaining and learning concepts in **Go, Python, and TypeScript** through
-small test-driven exercises. You name a concept; the system hands you one bite-sized failing
-test suite to make pass. You learn by doing — it does not teach or hand over solutions.
+small test-driven exercises. You name a concept; the system hands you a set of **at least 3**
+bite-sized failing tasks to make pass (≈20 min total). You learn by doing — it does not teach or
+hand over solutions.
 
 **Current goal: interview patterns.** The active track is `INTERVIEW_PATTERNS.md` — a Go syllabus
 of 15 coding-interview patterns, each broken into primitive drills that ladder up to a real
@@ -20,8 +21,8 @@ problem. `/daily continue` walks that ladder; naming a specific concept still ov
    ```bash
    ./daily/run.sh
    ```
-3. **Make it GREEN.** Edit the stub until `./daily/run.sh` passes. Aim for ≤20 minutes —
-   if a concept is bigger, it's split across days.
+3. **Make it GREEN.** Edit the stubs until `./daily/run.sh` passes. Each day has ≥3 small tasks;
+   aim for ~20 minutes total — if a concept is bigger, it's split across days.
 4. **Next day**, run `/daily` again. It first checks how yesterday went (runs the tests,
    looks at your solution), writes a `CRITIQUE.md` into that exercise's folder (what was
    idiomatic, where to sharpen, a confidence verdict), records the outcome in `PROGRESS.md`,

@@ -5,8 +5,13 @@ allowed-tools: Bash(./daily/run.sh:*), Bash(date:*), Bash(find:*), Bash(git diff
 ---
 
 You are running the **daily practice ritual** for this repo. The user owns the learning —
-your job is ONLY to manufacture one well-scoped, ≤20-minute TDD exercise and to calibrate its
-difficulty from how past attempts went. Do not teach the concept and do not write the solution.
+your job is ONLY to manufacture a well-scoped TDD workout and to calibrate its difficulty from how
+past attempts went. Do not teach the concept and do not write the solution.
+
+**Volume: at least 3 exercises per day.** Each day's folder must contain **≥3 small problems**
+(distinct functions/tasks), sized so the whole set is completable in ~20 minutes (each one ~5–7 min).
+They should build on each other — ideally consecutive micro-steps of the active track's ladder, or
+a primitive plus two variations that drill the same idea.
 
 **Active track: interview patterns.** The current learning goal is `daily/INTERVIEW_PATTERNS.md` —
 a Go syllabus of 15 coding-interview patterns, each broken into primitive micro-steps that ladder
@@ -63,18 +68,20 @@ Use the concept's history in `PROGRESS.md`:
 - Passed easily last time → push harder: a new facet, an edge case, or fewer scaffolds.
 - Failed or struggled → shrink it: isolate the exact sticking point in a simpler task.
 - New concept → start with the smallest meaningful slice.
-Keep the whole task completable in **≤20 minutes**. If the concept is bigger, scope today to one
-slice and note the larger arc in the spec so `continue` can pick up the rest.
+Keep the whole set of **≥3 exercises** completable in **~20 minutes** total. If the concept is
+bigger, scope today to one slice of the ladder (its next 3 rungs) and note the larger arc in the
+spec so `continue` can pick up the rest.
 
 ## Step 4 — Generate today's exercise folder
 
 Create `daily/exercises/<date>-<lang>-<slug>/` with:
 
-- **`SPEC.md`** — a short problem statement: the goal, the specific ≤20-min slice for today,
-  concrete acceptance criteria, and a line naming the larger arc this ladders into. No hints,
-  no solution outline.
-- **A stub file** with `// TODO` / `# TODO` markers and the smallest signatures needed.
-- **Failing tests** that encode the acceptance criteria. Tests MUST fail against the stub.
+- **`SPEC.md`** — a short problem statement: the goal, the **≥3 tasks** for today (each a distinct
+  function), concrete acceptance criteria, and a line naming the larger arc this ladders into. No
+  hints, no solution outline.
+- **A stub file** with a `// TODO` / `# TODO` markered signature for **each of the ≥3 tasks**.
+- **Failing tests** that encode the acceptance criteria for every task. All tests MUST fail against
+  the stubs.
 
 Per-language conventions (match existing repo style):
 
@@ -93,7 +100,8 @@ Per-language conventions (match existing repo style):
 
 ## Hard rules
 
+- **At least 3 exercises per day** (distinct tasks in the folder).
 - Never write or sketch the solution. Folders contain only the spec + failing tests.
 - Tests must fail initially (true RED).
-- ≤20 minutes; split bigger concepts across days.
+- ~20 minutes for the whole set; split bigger concepts across days.
 - Only Go, Python, TypeScript.
