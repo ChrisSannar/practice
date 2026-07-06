@@ -5,6 +5,33 @@ import (
 	"testing"
 )
 
+func TestKeepPositives(t *testing.T) {
+	cases := []struct {
+		name    string
+		s       []int
+		wantK   int
+		wantTop []int // s[:k] after the call
+	}{
+		{"mixed", []int{1, -2, 3, -4, 5}, 3, []int{1, 3, 5}},
+		{"zero is not positive", []int{0, 1, 0, 2}, 2, []int{1, 2}},
+		{"all positive", []int{1, 2, 3}, 3, []int{1, 2, 3}},
+		{"none positive", []int{-1, -2, -3}, 0, []int{}},
+		{"empty", []int{}, 0, []int{}},
+		{"single positive", []int{5}, 1, []int{5}},
+		{"single negative", []int{-5}, 0, []int{}},
+	}
+	for _, c := range cases {
+		k := KeepPositives(c.s)
+		if k != c.wantK {
+			t.Errorf("%s: KeepPositives(...) = %d, want %d", c.name, k, c.wantK)
+			continue
+		}
+		if got := c.s[:k]; !reflect.DeepEqual(got, c.wantTop) {
+			t.Errorf("%s: after KeepPositives, s[:%d] = %v, want %v", c.name, k, got, c.wantTop)
+		}
+	}
+}
+
 func TestRemoveDuplicates(t *testing.T) {
 	cases := []struct {
 		name    string

@@ -42,8 +42,12 @@ when you fail, it resets so the concept comes back fast.
 - Folder: `exercises/2026-07-02-go-two-pointers-write-index/`
 - Outcome: in-progress
 - Notes: New two-pointer *shape* — both pointers start left, a slow write pointer trails a fast read
-  pointer for in-place array edits (`RemoveDuplicates` on a sorted slice, `MoveZeroes`). Contrast
-  with the converge family (2a) which walks inward from the ends.
+  pointer for in-place array edits. Contrast with the converge family (2a) which walks inward from the
+  ends. Calibration: user found the gradient too steep (got tangled on `RemoveDuplicates`, which is
+  actually the hardest — its keep-rule depends on the previous kept value). Prepended a warm-up
+  `KeepPositives` (keep-rule reads only the current element) and reordered easiest→hardest:
+  KeepPositives → RemoveElement → MoveZeroes → RemoveDuplicates. Watch whether the write-index shape
+  clicks; if RemoveDuplicates still fights, split it out on its own next.
 
 ### 2026-07-01 — Two pointers / converge (Go) — interview track 2a-iii
 - Folder: `exercises/2026-07-01-go-two-pointers-converge/`
