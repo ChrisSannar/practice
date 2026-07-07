@@ -46,7 +46,7 @@ These get their own primitive-drill days the first time a pattern needs them:
 
 Status legend: ☐ not started · ◐ in progress · ☑ solid. Update as we go.
 
-### 1. Two Pointers ◐ (converge family ☑; 2b same-direction in progress)
+### 1. Two Pointers ☑ (converge + write-index solid; 2c skipped by user call)
 Build on the slice index work already done.
 - [x] **2a-i** Ends mechanic, no decisions — `IsPalindrome`: `l`/`r` from both ends, `for l < r`,
   compare and move *both* inward. → `exercises/2026-06-30-go-two-pointers-ends/` (passed)
@@ -55,15 +55,25 @@ Build on the slice index work already done.
 - [x] **2a-iii** The converge: move *only one* pointer based on `sum < / > / == target` on a sorted
   slice. (`PairWithTarget`, return the index pair.) This is the one genuinely new idea.
   → `exercises/2026-07-01-go-two-pointers-converge/` (passed)
-- [◐] **2b** Same-direction write index: in-place remove-duplicates / move-zeroes — the "slow write
-  pointer, fast read pointer" idiom.
-  → `exercises/2026-07-02-go-two-pointers-write-index/` (in progress)
-- [ ] **2c** Problem: valid palindrome (skip non-alphanumerics) and/or two-sum-II.
+- [x] **2b** Same-direction write index: `KeepPositives`/`RemoveElement`/`MoveZeroes`/`RemoveDuplicates`
+  — the "slow write pointer, fast read pointer" idiom, both conventions (next-open-slot and
+  last-kept-index). → `exercises/2026-07-02-go-two-pointers-write-index/` (passed)
+- [ ] **2c** Problem: valid palindrome (skip non-alphanumerics) and/or two-sum-II. **Skipped for now**
+  — user is confident in the primitives (converge + write-index both landed clean) and asked to move
+  on to the next pattern. Revisit 2c later as a review rung if it comes up due for spaced repetition.
 
-### 2. Prefix Sum ☐
-- [ ] **3a** Build a prefix-sum slice from an input (`pre[i] = pre[i-1] + a[i-1]`, length n+1).
-- [ ] **3b** Range-sum query: answer `sum(i..j)` in O(1) from the prefix slice.
-- [ ] **3c** Problem: subarray-sum-equals-k (prefix sum + map of seen prefix counts).
+### 2. Prefix Sum ◐
+- [◐] **3a** Build a prefix-sum slice from an input (`pre[i] = pre[i-1] + a[i-1]`, length n+1).
+  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
+- [◐] **3b** Range-sum query: answer `sum(i..j)` in O(1) from the prefix slice.
+  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
+- [◐] **3c-i** Existence check: does any contiguous subarray sum to `target`? (running sum + a *set*
+  of seen prefix sums — the "have I seen `running - target` before" trick, boolean only.)
+  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
+- [◐] **3c-ii** Problem: subarray-sum-equals-k (leetcode 560) — same trick but *counting*, so the set
+  becomes a frequency map and every match adds `counts[running-target]` instead of stopping at the
+  first hit. This is the real interview problem the primitives above unlock.
+  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
 
 ### 3. Sliding Window ☐
 - [ ] **4a** Fixed window: max sum of a size-k subarray by add-right / subtract-left (no recompute).

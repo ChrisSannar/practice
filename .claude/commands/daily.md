@@ -79,7 +79,10 @@ Create `daily/exercises/<date>-<lang>-<slug>/` with:
 - **`SPEC.md`** — a short problem statement: the goal, the **≥3 tasks** for today (each a distinct
   function), concrete acceptance criteria, and a line naming the larger arc this ladders into. No
   hints, no solution outline.
-- **A stub file** with a `// TODO` / `# TODO` markered signature for **each of the ≥3 tasks**.
+- **A stub file** with a `// TODO` / `# TODO` markered signature for **each of the ≥3 tasks**. Above
+  every stubbed function, include a **concrete input → output example** in the doc comment (e.g.
+  `// BuildPrefixSum([1, 2, 3]) -> [0, 1, 3, 6]`) so the contract is unambiguous without reading the
+  tests. This is a standard part of every stub, not optional.
 - **Failing tests** that encode the acceptance criteria for every task. All tests MUST fail against
   the stubs.
 
@@ -101,6 +104,7 @@ Per-language conventions (match existing repo style):
 ## Hard rules
 
 - **At least 3 exercises per day** (distinct tasks in the folder).
+- **Every stub function has an input → output example** in its doc comment.
 - Never write or sketch the solution. Folders contain only the spec + failing tests.
 - Tests must fail initially (true RED).
 - ~20 minutes for the whole set; split bigger concepts across days.

@@ -32,22 +32,32 @@ when you fail, it resets so the concept comes back fast.
 | Go slice windowing (Take/Drop/Chunk) | Go | 1 | failed (Chunk) | 3 | 2026-06-28 | 2026-06-29 |
 | Two pointers — ends mechanic (interview 2a-i/ii) | Go | 1 | passed | 4 | 2026-06-30 | 2026-07-02 |
 | Two pointers — converge (interview 2a-iii) | Go | 1 | passed | 4 | 2026-07-01 | 2026-07-03 |
-| Two pointers — write index (interview 2b) | Go | 0 | in-progress | — | 2026-07-02 | 2026-07-02 |
+| Two pointers — write index (interview 2b) | Go | 1 | passed | 4 | 2026-07-02 | 2026-07-05 |
+| Prefix sum (interview 3a/3b/3c-i/3c-ii) | Go | 0 | in-progress | — | 2026-07-07 | 2026-07-07 |
 
 ## Log
 
 <!-- Reverse-chronological. Newest entry on top. /daily prepends one entry per exercise. -->
 
+### 2026-07-07 — Prefix Sum (Go) — interview track 3a/3b/3c-i/3c-ii
+- Folder: `exercises/2026-07-07-go-prefix-sum/`
+- Outcome: in-progress
+- Notes: New pattern, four tasks at user's request (pace change — confident in two pointers, wants
+  to move faster). Ladders inside one day since prefix sum is small: `BuildPrefixSum` (the array) →
+  `RangeSum` (O(1) query off it) → `HasSubarraySum` (boolean existence via "seen running sums", the
+  core trick) → `CountSubarraysWithSum` (leetcode 560, same trick but a frequency map instead of a
+  set, and counting instead of stopping at first hit). Closes out pattern 2 in one sitting if it goes
+  well; if `CountSubarraysWithSum` fights, that's the isolated sticking point for next time.
+
 ### 2026-07-02 — Two pointers / same-direction write index (Go) — interview track 2b
 - Folder: `exercises/2026-07-02-go-two-pointers-write-index/`
-- Outcome: in-progress
-- Notes: New two-pointer *shape* — both pointers start left, a slow write pointer trails a fast read
-  pointer for in-place array edits. Contrast with the converge family (2a) which walks inward from the
-  ends. Calibration: user found the gradient too steep (got tangled on `RemoveDuplicates`, which is
-  actually the hardest — its keep-rule depends on the previous kept value). Prepended a warm-up
-  `KeepPositives` (keep-rule reads only the current element) and reordered easiest→hardest:
-  KeepPositives → RemoveElement → MoveZeroes → RemoveDuplicates. Watch whether the write-index shape
-  clicks; if RemoveDuplicates still fights, split it out on its own next.
+- Outcome: passed (all four green) — `KeepPositives`, `RemoveElement`, `MoveZeroes`, `RemoveDuplicates`
+- Critique: `exercises/2026-07-02-go-two-pointers-write-index/CRITIQUE.md`
+- Notes: Gradient fix landed — `KeepPositives` warm-up unstuck it. All four correct and idiomatic;
+  notably `RemoveDuplicates` correctly switches to the *other* write-index convention (write = index
+  of last kept value, not next open slot) because its keep-rule needs the previous kept value — a
+  real sign the pattern clicked, not just pattern-matched. User is confident enough to skip 2c
+  (palindrome/two-sum-II problem) and move to the next pattern; 2c parked as a future review rung.
 
 ### 2026-07-01 — Two pointers / converge (Go) — interview track 2a-iii
 - Folder: `exercises/2026-07-01-go-two-pointers-converge/`
