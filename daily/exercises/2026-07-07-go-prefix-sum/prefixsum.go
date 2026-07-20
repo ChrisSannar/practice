@@ -7,9 +7,11 @@ import "fmt"
 //
 // Example: BuildPrefixSum([]int{1, 2, 3, 4}) -> []int{0, 1, 3, 6, 10}
 func BuildPrefixSum(a []int) []int {
-	fmt.Println("BuildPrefixSum")
-	// TODO
-	return nil
+	result := []int{0}
+	for idx, val := range a {
+		result = append(result, result[idx]+val)
+	}
+	return result
 }
 
 // RangeSum returns the sum of a[i..j] inclusive, in O(1), using a prefix
@@ -18,16 +20,16 @@ func BuildPrefixSum(a []int) []int {
 // Example: pre = []int{0, 1, 3, 6, 10} (from a = []int{1, 2, 3, 4});
 // RangeSum(pre, 1, 3) -> 9 (i.e. a[1]+a[2]+a[3] = 2+3+4)
 func RangeSum(pre []int, i, j int) int {
-	fmt.Println("RangeSum")
-	// TODO
-	return 0
+	return pre[j+1] - pre[i]
 }
 
 // HasSubarraySum reports whether any contiguous subarray of a sums to target.
 //
 // Example: HasSubarraySum([]int{1, 2, 3}, 5) -> true (2+3 = 5)
 func HasSubarraySum(a []int, target int) bool {
-	fmt.Println("HasSubarraySum")
+	// prefixArray := BuildPrefixSum(a)
+	fmt.Println("HasSubarraySum", a)
+
 	// TODO
 	return false
 }

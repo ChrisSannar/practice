@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prefix Sum Pattern — Cheat Sheet</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Prefix Sum Pattern — Cheat Sheet</h1>
+  <p class="subtitle">Reference &middot; Interview Patterns Track &middot; Go</p>
+</header>
+
+<nav class="lesson-nav">
+  <a href="../lessons/0001-subarray-sum-detection.html">Lesson 1: Subarray Sum Detection</a>
+  <a href="../GLOSSARY.html">Glossary</a>
+</nav>
+
+<section>
+  <h2>1. Build the Prefix Sum Array</h2>
+  <pre><code>pre[0] = 0
+pre[i] = pre[i-1] + a[i-1]   for i = 1..len(a)
+
+// Go
+func BuildPrefixSum(a []int) []int {
+    pre := []int{0}
+    for i := range a {
+        pre = append(pre, pre[i]+a[i])
+    }
+    return pre  // len(pre) == len(a)+1
+}</code></pre>
+  <p><code>pre[i]</code> = sum of the first <code>i</code> elements of <code>a</code>.</p>
+  <p><strong>Example:</strong> <code>BuildPrefixSum([1, 2, 3, 4]) &rarr; [0, 1, 3, 6, 10]</code></p>
+</section>
+
+<section>
+  <h2>2. O(1) Range Sum Query</h2>
+  <pre><code>sum(a[i..j]) = pre[j+1] - pre[i]
+
+// Go
+func RangeSum(pre []int, i, j int) int {
+    return pre[j+1] - pre[i]
+}</code></pre>
+  <p><strong>Example:</strong> <code>RangeSum([0,1,3,6,10], 1, 3) &rarr; 9</code> (i.e. 2+3+4)</p>
+</section>
+
+<section>
+  <h2>3. Subarray Sum Detection — O(n)</h2>
+  <p><strong>Question:</strong> Does any contiguous subarray sum to <code>target</code>?</p>
+  <pre><code>func HasSubarraySum(a []int, target int) bool {
+    seen := map[int]bool{0: true}
+    running := 0
+    for _, v := range a {
+        running += v
+        if seen[running - target] {
+            return true
+        }
+        seen[running] = true
+    }
+    return false
+}</code></pre>
+  <p><strong>Why it works:</strong> <code>pre[j+1] - pre[i] = target</code> &rarr;
+  <code>pre[i] = pre[j+1] - target</code>. At each step, check if <code>running - target</code> was seen
+  earlier. <code>{0: true}</code> handles subarrays starting at index 0.</p>
+</section>
+
+<section>
+  <h2>4. Subarray Sum Counting — O(n)</h2>
+  <p><strong>Question:</strong> How many contiguous subarrays sum to <code>target</code>?</p>
+  <p><em>This is <a href="https://leetcode.com/problems/subarray-sum-equals-k/">LeetCode 560</a>.</em></p>
+  <pre><code>func CountSubarraysWithSum(a []int, target int) int {
+    counts := map[int]int{0: 1}
+    running, total := 0, 0
+    for _, v := range a {
+        running += v
+        total += counts[running - target]
+        counts[running]++
+    }
+    return total
+}</code></pre>
+  <p><strong>Change from detection:</strong> seen-set (<code>map[int]bool</code>) becomes seen-map
+  (<code>map[int]int</code>), tracking <em>how many times</em> each prefix sum appeared. Each earlier
+  occurrence is a distinct valid subarray, so you add <code>counts[running - target]</code> to the
+  total. <code>{0: 1}</code> handles subarrays starting at index 0.</p>
+</section>
+
+<section>
+  <h2>Key Gotchas</h2>
+  <ul>
+    <li><strong>Initialize with zero.</strong> <code>{0: true}</code> or <code>{0: 1}</code>. Without
+    it, subarrays starting at index 0 are missed.</li>
+    <li><strong>Check before adding.</strong> The current <code>running</code> is added to the set/map
+    <em>after</em> checking <code>running - target</code>, so you're only matching prefix sums from
+    <em>earlier</em> positions.</li>
+    <li><strong>Go map zero-value.</strong> <code>counts[running - target]</code> returns <code>0</code>
+    if the key doesn't exist — no need for an existence check.</li>
+    <li><strong>Negative numbers are fine.</strong> This approach works with any integers. Sliding
+    window does <em>not</em> work with negatives.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Complexity</h2>
+  <table style="width: 100%; border-collapse: collapse; font-family: var(--font-sans); font-size: 0.9rem;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--border);">
+        <th style="text-align: left; padding: 0.4rem 0.6rem;">Operation</th>
+        <th style="text-align: left; padding: 0.4rem 0.6rem;">Time</th>
+        <th style="text-align: left; padding: 0.4rem 0.6rem;">Space</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.4rem 0.6rem;">Build prefix array</td>
+        <td style="padding: 0.4rem 0.6rem;">O(n)</td>
+        <td style="padding: 0.4rem 0.6rem;">O(n)</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.4rem 0.6rem;">Range sum query</td>
+        <td style="padding: 0.4rem 0.6rem;">O(1)</td>
+        <td style="padding: 0.4rem 0.6rem;">O(1) (or O(n) for stored array)</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 0.4rem 0.6rem;">HasSubarraySum</td>
+        <td style="padding: 0.4rem 0.6rem;">O(n)</td>
+        <td style="padding: 0.4rem 0.6rem;">O(n)</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem 0.6rem;">CountSubarraysWithSum</td>
+        <td style="padding: 0.4rem 0.6rem;">O(n)</td>
+        <td style="padding: 0.4rem 0.6rem;">O(n)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>&laquo; <a href="../MISSION.html">Mission</a> &middot; <a href="../GLOSSARY.html">Glossary</a>
+  &middot; <a href="../lessons/0001-subarray-sum-detection.html">Lesson 1</a> &raquo;</p>
+</footer>
+
+</body>
+</html>

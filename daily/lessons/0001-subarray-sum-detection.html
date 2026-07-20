@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detecting a Subarray That Sums to a Target — Prefix Sum Lesson</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Detecting a Subarray That Sums to a Target</h1>
+  <p class="subtitle">Lesson 1 &middot; Prefix Sum Pattern &middot; Interview Track Step 3c</p>
+</header>
+
+<nav class="lesson-nav">
+  <a href="../reference/prefix-sum-pattern.html">Reference: Prefix Sum Cheat Sheet</a>
+  <a href="../MISSION.html">Mission</a>
+  <a href="../GLOSSARY.html">Glossary</a>
+</nav>
+
+<section>
+  <p>You already built a <strong>prefix sum array</strong> and used it to answer range-sum queries in
+  O(1). This lesson takes the next step: using that same idea to answer <em>"does any subarray sum to a
+  target?"</em> in a single O(n) pass &mdash; no nested loops, no precomputed array needed.</p>
+</section>
+
+<section>
+  <h2>The Identity You Already Know</h2>
+  <p>Your <code>RangeSum</code> function works because of one identity:</p>
+  <pre><code>sum(a[i..j]) = pre[j+1] - pre[i]</code></pre>
+  <p>The sum of any contiguous slice <code>a[i..j]</code> is the difference of two prefix values. That's
+  the entire mechanical foundation. Everything from here is a rearrangement of this one line.</p>
+</section>
+
+<section>
+  <h2>The Insight</h2>
+  <p>We want to find <code>i</code> and <code>j</code> such that <code>sum(a[i..j]) = target</code>.
+  Substituting the identity:</p>
+  <pre><code>pre[j+1] - pre[i] = target</code></pre>
+  <p>Rearrange to isolate what we're looking for:</p>
+  <pre><code>pre[i] = pre[j+1] - target</code></pre>
+  <p>Read this carefully. It says: <strong>at each position <code>j</code>, the prefix sum we need to
+  have seen earlier is <code>pre[j+1] - target</code></strong>. If some earlier prefix sum equals
+  <code>pre[j+1] - target</code>, the subarray from that earlier point to <code>j</code> sums to
+  <code>target</code>.</p>
+  <div class="callout">
+    <p>This is the whole trick. You don't need to check every pair <code>(i, j)</code>. You walk once,
+    and at each step you ask a single question: <strong>"have I seen <code>running - target</code>
+    before?"</strong></p>
+  </div>
+</section>
+
+<section>
+  <h2>The Algorithm</h2>
+  <p>Here's the complete procedure for detecting whether any subarray sums to <code>target</code>:</p>
+  <pre><code>func HasSubarraySum(a []int, target int) bool {
+    seen := map[int]bool{0: true}  // empty prefix: sum before any elements
+    running := 0
+    for _, v := range a {
+        running += v
+        if seen[running - target] {
+            return true  // a subarray from that earlier point to here sums to target
+        }
+        seen[running] = true
+    }
+    return false
+}</code></pre>
+  <p>Three things to notice:</p>
+  <ol>
+    <li><strong>One pass, O(n).</strong> You never look back at earlier elements &mdash; you only check
+    the set.</li>
+    <li><strong>The set is initialized with <code>0</code>.</strong> This represents the prefix sum
+    before reading any elements (the "empty prefix"). Without it, a subarray starting at index 0 would
+    be missed &mdash; more on this below.</li>
+    <li><strong>You add <code>running</code> to the set <em>after</em> checking.</strong> The check is
+    against prefix sums from <em>earlier</em> positions, not the current one.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Step Through It</h2>
+  <p class="step-counter" id="stepLabel">Step 0 of 4 &mdash; click "Step" to begin</p>
+  <div class="array-vis" id="arrayVis"></div>
+  <div class="viz-controls">
+    <button id="stepBtn" onclick="stepForward()">Step &rarr;</button>
+    <button id="resetBtn" onclick="resetViz()" disabled>Reset</button>
+  </div>
+  <div class="viz-state" id="vizState"></div>
+  <p id="vizExplanation"></p>
+</section>
+
+<div class="callout warn" id="initGotcha">
+  <h3>Why <code>{0}</code>?</h3>
+  <p>At <code>step 2</code> above, the running sum hit <code>7</code> and we checked for
+  <code>7 - 5 = 0</code>. That <code>0</code> was in the set <em>because we put it there before
+  walking</em>. It represents the prefix sum of zero elements &mdash; "before you've read anything, the
+  sum is 0." Without it, subarrays that start at index 0 would never be detected &mdash; you'd miss the
+  match <code>2 + 3 = 5</code> here entirely.</p>
+</div>
+
+<section>
+  <h2>From Detection to Counting</h2>
+  <p>The exercise asks for a second function: <code>CountSubarraysWithSum</code>. This is
+  <a href="https://leetcode.com/problems/subarray-sum-equals-k/">LeetCode 560</a>, and the change is
+  small but important:</p>
+  <ul>
+    <li>The <strong>seen-set</strong> becomes a <strong>seen-map</strong>: <code>map[int]int</code>;
+    the value is how many times each prefix sum has appeared.</li>
+    <li>Instead of <code>if seen[...] { return true }</code>, you <strong>add</strong>
+    <code>counts[running - target]</code> to a running total &mdash; every earlier occurrence of that
+    prefix sum is a distinct valid subarray.</li>
+    <li>Initialize with <code>{0: 1}</code> instead of <code>{0: true}</code>.</li>
+  </ul>
+  <pre><code>func CountSubarraysWithSum(a []int, target int) int {
+    counts := map[int]int{0: 1}
+    running, total := 0, 0
+    for _, v := range a {
+        running += v
+        total += counts[running - target]  // 0 if not present (Go map zero-value)
+        counts[running]++
+    }
+    return total
+}</code></pre>
+</section>
+
+<section>
+  <h2>Check Your Understanding</h2>
+  <div class="quiz-question" id="q1">
+    <p>1. Running sum is 9, target is 5. What value do you check the seen-set for?</p>
+    <input type="text" id="q1input" placeholder="type your answer" autocomplete="off">
+    <button onclick="checkAnswer('q1', 'four')">Check</button>
+    <div class="quiz-feedback" id="q1fb"></div>
+  </div>
+  <div class="quiz-question" id="q2">
+    <p>2. What number must the seen-set contain before you start walking the array?</p>
+    <input type="text" id="q2input" placeholder="type your answer" autocomplete="off">
+    <button onclick="checkAnswer('q2', 'zero')">Check</button>
+    <div class="quiz-feedback" id="q2fb"></div>
+  </div>
+  <div class="quiz-question" id="q3">
+    <p>3. Running sum is 10, target is 3. What value do you check the seen-set for?</p>
+    <input type="text" id="q3input" placeholder="type your answer" autocomplete="off">
+    <button onclick="checkAnswer('q3', 'seven')">Check</button>
+    <div class="quiz-feedback" id="q3fb"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Your Exercise</h2>
+  <p>Open <code>exercises/2026-07-07-go-prefix-sum/prefixsum.go</code> and implement
+  <code>HasSubarraySum</code> (task 3) and <code>CountSubarraysWithSum</code> (task 4). You now have the
+  algorithm &mdash; translate it into Go using <code>map[int]bool</code> for the seen-set and
+  <code>map[int]int</code> for the seen-map. Run <code>./daily/run.sh</code> to see green.</p>
+  <div class="callout">
+    <p>Remember: the <code>seen</code> map / <code>counts</code> map is checked <em>before</em> adding
+    the current <code>running</code> to it. You're asking "did this prefix sum appear at an
+    <em>earlier</em> position?"</p>
+  </div>
+</section>
+
+<section>
+  <h2>Primary Source</h2>
+  <p>Read <a href="https://www.geeksforgeeks.org/dsa/find-subarray-with-given-sum-in-array-of-integers/">"Subarray
+  with Given Sum &mdash; Handles Negative Numbers"</a> on GeeksforGeeks. It covers the naive O(n&sup2;)
+  motivation, the prefix-sum + hashmap approach with a full dry-run, and implementations in C++, Java,
+  Python, and JavaScript. This is the canonical reference for the technique.</p>
+  <p>For the counting variant, <a href="https://leetcode.com/problems/subarray-sum-equals-k/">LeetCode
+  560 &mdash; Subarray Sum Equals K</a> is the definitive problem and its editorial walks through the
+  frequency-map extension.</p>
+</section>
+
+<footer>
+  <p><strong>Questions?</strong> Ask your agent &mdash; it's your teacher and can clarify anything in
+  this lesson, dive deeper into the math, or check your Go implementation against the pattern.</p>
+  <p>&laquo; <a href="../MISSION.html">Mission</a> &middot; <a href="../GLOSSARY.html">Glossary</a>
+  &middot; <a href="../RESOURCES.md">Resources</a> &middot; <a href="../reference/prefix-sum-pattern.html">Cheat Sheet</a> &raquo;</p>
+</footer>
+
+<script>
+const ARR = [1, 2, 3];
+const TARGET = 5;
+
+const STEPS = [
+  { idx: -1, running: 0, seen: [0], check: null, found: false,
+    explain: "Initial state. The seen-set starts with just {0} — the prefix sum of zero elements." },
+  { idx: 0,  running: 1, seen: [0, 1], check: -4, found: false,
+    explain: "Read a[0] = 1. Running = 0 + 1 = 1. Check for 1 − 5 = −4 in seen: not found. Add 1 to seen." },
+  { idx: 1,  running: 3, seen: [0, 1, 3], check: -2, found: false,
+    explain: "Read a[1] = 2. Running = 1 + 2 = 3. Check for 3 − 5 = −2 in seen: not found. Add 3 to seen." },
+  { idx: 2,  running: 6, seen: [0, 1, 3], check: 1, found: true,
+    explain: "Read a[2] = 3. Running = 3 + 3 = 6. Check for 6 − 5 = 1 in seen: FOUND! The subarray from just after where running was 1 (index 1) to here (index 2) sums to 5. That's a[1..2] = 2 + 3 = 5. ✓" }
+];
+
+let currentStep = 0;
+
+function renderViz() {
+  const s = STEPS[currentStep];
+  const vis = document.getElementById('arrayVis');
+  vis.innerHTML = '';
+  ARR.forEach((val, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'array-cell';
+    cell.textContent = val;
+    if (i === s.idx) cell.classList.add('current');
+    else if (s.idx >= 0 && i > s.idx) cell.classList.add('outside');
+    if (s.found && i >= 1 && i <= 2) cell.classList.add('match');
+    if (s.found) cell.classList.remove('outside');
+    vis.appendChild(cell);
+  });
+
+  const stateEl = document.getElementById('vizState');
+  let html = `<span class="label">array:</span> [${ARR.join(', ')}]<br>`;
+  html += `<span class="label">target:</span> ${TARGET}<br>`;
+  html += `<span class="label">index:</span> <span class="value">${s.idx < 0 ? '—' : s.idx}</span><br>`;
+  html += `<span class="label">running sum:</span> <span class="value">${s.running}</span><br>`;
+  html += `<span class="label">running − target:</span> <span class="value">${s.check === null ? '—' : s.check}</span><br>`;
+  html += `<span class="label">seen-set:</span> {${s.seen.join(', ')}}<br>`;
+  if (s.check !== null) {
+    if (s.found) {
+      html += `<span class="found">✓ ${s.check} is in seen → subarray sums to target!</span>`;
+    } else {
+      html += `<span class="miss">✗ ${s.check} not in seen → continue</span>`;
+    }
+  }
+  stateEl.innerHTML = html;
+
+  document.getElementById('vizExplanation').textContent = s.explain || '';
+  document.getElementById('stepLabel').textContent = `Step ${currentStep} of ${STEPS.length - 1}`;
+
+  document.getElementById('stepBtn').disabled = currentStep >= STEPS.length - 1;
+  document.getElementById('resetBtn').disabled = currentStep === 0;
+}
+
+function stepForward() {
+  if (currentStep < STEPS.length - 1) {
+    currentStep++;
+    renderViz();
+  }
+}
+
+function resetViz() {
+  currentStep = 0;
+  renderViz();
+}
+
+function checkAnswer(qid, correct) {
+  const input = document.getElementById(qid + 'input');
+  const fb = document.getElementById(qid + 'fb');
+  fb.style.display = 'block';
+  const answer = input.value.trim().toLowerCase();
+  if (answer === correct) {
+    fb.textContent = '✓ Correct!';
+    fb.style.color = 'var(--correct)';
+    input.style.borderColor = 'var(--correct)';
+  } else {
+    fb.textContent = '✗ Not quite — try again.';
+    fb.style.color = 'var(--wrong)';
+    input.style.borderColor = 'var(--wrong)';
+  }
+}
+
+renderViz();
+</script>
+
+</body>
+</html>
