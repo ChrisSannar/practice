@@ -62,23 +62,39 @@ Build on the slice index work already done.
   — user is confident in the primitives (converge + write-index both landed clean) and asked to move
   on to the next pattern. Revisit 2c later as a review rung if it comes up due for spaced repetition.
 
-### 2. Prefix Sum ◐
-- [◐] **3a** Build a prefix-sum slice from an input (`pre[i] = pre[i-1] + a[i-1]`, length n+1).
-  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
-- [◐] **3b** Range-sum query: answer `sum(i..j)` in O(1) from the prefix slice.
-  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
-- [◐] **3c-i** Existence check: does any contiguous subarray sum to `target`? (running sum + a *set*
+### 2. Prefix Sum ◐ (primitives solid; 3c deferred by user call — revisit as review rung)
+Build on the slice index work already done.
+- [x] **3a** Build a prefix-sum slice from an input (`pre[i] = pre[i-1] + a[i-1]`, length n+1).
+  → `exercises/2026-07-07-go-prefix-sum/` (passed)
+- [x] **3b** Range-sum query: answer `sum(i..j)` in O(1) from the prefix slice.
+  → `exercises/2026-07-07-go-prefix-sum/` (passed)
+- [ ] **3c-i** Existence check: does any contiguous subarray sum to `target`? (running sum + a *set*
   of seen prefix sums — the "have I seen `running - target` before" trick, boolean only.)
-  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
-- [◐] **3c-ii** Problem: subarray-sum-equals-k (leetcode 560) — same trick but *counting*, so the set
+  **Deferred** — user hit the conceptual wall on the running-sum + seen-set trick across multiple
+  sessions and chose to move on rather than keep stalling. The mechanical foundation (3a/3b) is
+  solid; this is the actual algorithmic insight that didn't click. Revisit later as a review rung
+  if it comes up due for spaced repetition or once Sliding Window / similar running-state patterns
+  reinforce the "maintain a state and check membership against it" reflex.
+- [ ] **3c-ii** Problem: subarray-sum-equals-k (leetcode 560) — same trick but *counting*, so the set
   becomes a frequency map and every match adds `counts[running-target]` instead of stopping at the
   first hit. This is the real interview problem the primitives above unlock.
-  → `exercises/2026-07-07-go-prefix-sum/` (in progress)
+  **Deferred** alongside 3c-i — same conceptual sticking point. Revisit with 3c-i.
 
-### 3. Sliding Window ☐
-- [ ] **4a** Fixed window: max sum of a size-k subarray by add-right / subtract-left (no recompute).
+### 3. Sliding Window ◐
+- [x] **4a** Fixed window: max sum of a size-k subarray by add-right / subtract-left (no recompute).
+  → `exercises/2026-08-12-go-sliding-window-fixed/` (passed — **caveat: solved O(n·k) recompute, not
+  the O(n) slide; the slide mechanic did not land. Review sooner than the interval if 4b doesn't
+  heal it.**) **Slide re-drill on 2026-08-15** (`exercises/2026-08-15-go-sliding-window-slide/`) — user
+  asked to hone the missing point from the critique directly: isolate the slide, re-apply to 4a done
+  right, then introduce variable-width expand/shrink with a running sum only. **Resolved 2026-08-28:
+  that re-drill went green with the real O(1) slide present — the recompute habit is healed.**
+- [x] **4b-pre** Variable-window sum primitive: expand right / shrink left while sum ≥ target, track
+  min length (positives only). The expand/shrink mechanic with a running sum — no seen-set — so it
+  drills the grow/shrink reflex without re-triggering the 3c seen-set wall.
+  → `exercises/2026-08-15-go-sliding-window-slide/` (passed — expand/shrink landed)
 - [ ] **4b** Variable window: longest substring without repeating chars — expand right, shrink left
-  on violation, track best.
+  on violation, track best. **Needs a seen-set** (the deferred 3c sticking point); attempt only after
+  4b-pre's expand/shrink is solid.
 - [ ] **4c** Problem: minimum window substring (need-counts + window-counts).
 
 ### 4. Fast & Slow Pointers ☐
