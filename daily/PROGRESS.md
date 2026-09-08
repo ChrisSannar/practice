@@ -35,15 +35,44 @@ when you fail, it resets so the concept comes back fast.
 | Two pointers — write index (interview 2b) | Go | 1 | passed | 4 | 2026-07-02 | 2026-07-05 |
 | Prefix sum (interview 3a/3b/3c-i/3c-ii) | Go | 1 | abandoned (3c deferred) | 3 | 2026-07-07 | 2026-08-19 |
 | Sliding window — fixed 4a + 4b-pre (interview track) | Go | 3 | passed (slide healed) | 4 | 2026-08-15 | 2026-09-04 |
-| Sliding window — seen-set window 4b (interview track) | Go | 1 | in-progress | 3 | 2026-08-28 | 2026-08-28 |
+| Sliding window — seen-set window 4b (interview track) | Go | 1 | in-progress (shrink re-drill) | 2 | 2026-09-03 | 2026-09-03 |
 
 ## Log
 
 <!-- Reverse-chronological. Newest entry on top. /daily prepends one entry per exercise. -->
 
+### 2026-09-03 — Sliding Window — fixing the shrink loop (Go) — interview track 4b re-drill
+- Folder: `exercises/2026-09-03-go-sliding-window-shrink/`
+- Outcome: in-progress
+- Notes: closing out 2026-08-28 today surfaced a real bug (see that entry) — the shrink step wasn't
+  actually implemented, just a jump-left-and-delete-the-incoming-value lookalike that passed by luck
+  on that day's test cases. Rather than advance to 4c, today isolates the exact sticking point:
+  (1) `ShrinkPastDuplicate` — the bare left-walk primitive, pure array + indices, no set, forcing
+  multi-step removal (duplicate several indices in from `left`, not just at `left`); (2)
+  `LongestUniqueLen` redone with that mechanic, tested against a non-adjacent-repeat case
+  (`[0,1,2,0,3]` → 4) that specifically breaks the previous jump-shortcut; (3)
+  `LengthOfLongestSubstring` redone the same way, tested against the classic `"dvdf"` → 3 and
+  `"tmmzuxt"` → 5 LC3 traps. All expected values verified against a correct reference implementation
+  before publishing, and the stub confirmed true RED. **Next**: if green (and the shrink loop is
+  actually present, not another lookalike), mark 4b done in `INTERVIEW_PATTERNS.md` and move to 4c
+  (minimum window substring — need-counts vs window-counts). If it stalls again, drop confidence
+  further and consider whiteboarding the invariant explicitly before another attempt.
+
 ### 2026-08-28 — Sliding Window — seen-set window (Go) — interview track 4b
 - Folder: `exercises/2026-08-28-go-sliding-window-uniques/`
-- Outcome: in-progress
+- Outcome: tests green, but real bug found on review (closed out 2026-09-03)
+- Critique: `exercises/2026-08-28-go-sliding-window-uniques/CRITIQUE.md`
+- Closeout note: all 3 tasks passed the provided tests, but `LongestUniqueLen` /
+  `LengthOfLongestSubstring` don't implement the actual shrink loop — on a duplicate they delete only
+  the incoming value and jump `left` straight to the current index, silently dropping every element
+  between old-`left` and the jump target from the set without checking if they're still legitimately
+  in the window. This under-counts on inputs where the repeat isn't adjacent to `left`:
+  `LongestUniqueLen([0,1,2,0,3])` returns 3 (should be 4), `LengthOfLongestSubstring("dvdf")` returns
+  2 (should be 3, the classic LC3 case). None of that day's tests had a non-adjacent-repeat case, so
+  it slipped through green — a gap in the tests, not just the code. Confidence dropped to 2 and next
+  review reset to +1 day (treating this as a struggle despite the green run). **Next**: re-isolate the
+  shrink primitive directly, then redo the two driving functions with `dvdf`-shaped tests before ever
+  touching 4c — an unsound shrink here would compound into the need-counts version there.
 - Notes: `continue` from the now-solid slide/expand-shrink base into 4b (longest substring without
   repeating chars). 4b's new ingredient is the **seen-set** — the exact "maintain a state, check
   membership" reflex deferred at 3c — so the day ladders it back in gently rather than opening cold on

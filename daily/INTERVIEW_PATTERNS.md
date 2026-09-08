@@ -95,6 +95,11 @@ Build on the slice index work already done.
 - [ ] **4b** Variable window: longest substring without repeating chars — expand right, shrink left
   on violation, track best. **Needs a seen-set** (the deferred 3c sticking point); attempt only after
   4b-pre's expand/shrink is solid.
+  → `exercises/2026-08-28-go-sliding-window-uniques/` (tests green, but review found the shrink loop
+  isn't actually implemented — on a duplicate it deletes only the incoming value and jumps `left`
+  straight to the current index, dropping still-valid elements without checking them. Under-counts
+  on non-adjacent repeats, e.g. `LengthOfLongestSubstring("dvdf")` → 2, should be 3. Re-drilling the
+  isolated shrink primitive on 2026-09-03 before re-marking this done.)
 - [ ] **4c** Problem: minimum window substring (need-counts + window-counts).
 
 ### 4. Fast & Slow Pointers ☐
